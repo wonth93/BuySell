@@ -6,8 +6,10 @@ $(document).ready(function () {
       url: "/api/widgets",
       method: "GET",
       dataType: "json",
-      success: (cars) => {
-        console.log("data", cars);
+      success: (carsObject) => {
+        console.log(typeof carsObject);
+        const { cars } = carsObject;
+        console.log(typeof cars);
         renderCars(cars);
       },
       error: (err) => {
@@ -60,7 +62,7 @@ $(document).ready(function () {
 
   //rendering all of the tweets after grabbing them via ajax into the tweet container
   const renderCars = (cars) => {
-    $("#cars-container").empty();
+    //$("#cars-container").empty();
     console.log(cars);
     for (let car of cars) {
       const $car = createCarElement(car);

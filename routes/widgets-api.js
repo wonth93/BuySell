@@ -15,7 +15,7 @@ router.get("/", (req, res) => {
   db.query(query)
     .then((data) => {
       const cars = data.rows;
-      console.log(cars);
+      //console.log(cars);
       res.json({ cars });
     })
     .catch((err) => {
