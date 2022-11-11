@@ -14,8 +14,9 @@ router.get("/", (req, res) => {
   console.log(query);
   db.query(query)
     .then((data) => {
-      const widgets = data.rows;
-      res.json({ widgets });
+      const cars = data.rows;
+      console.log(cars);
+      res.json({ cars });
     })
     .catch((err) => {
       res.status(500).json({ error: err.message });
