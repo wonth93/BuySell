@@ -23,4 +23,19 @@ router.get("/", (req, res) => {
     });
 });
 
+router.get("/:id", (req, res) => {
+  const { id } = req.params;
+  const query = `SELECT * FROM cars WHERE id = ${id}`;
+  console.log(query);
+  db.query(query)
+    .then((data) => {
+      const car = data.rows;
+      //console.log(cars);
+      res.json({ car });
+    })
+    .catch((err) => {
+      res.status(500).json({ error: err.message });
+    });
+});
+
 module.exports = router;

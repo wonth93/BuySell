@@ -7,9 +7,8 @@ $(document).ready(function () {
       method: "GET",
       dataType: "json",
       success: (carsObject) => {
-        console.log(typeof carsObject);
+        //console.log(typeof carsObject);
         const { cars } = carsObject;
-        console.log(typeof cars);
         renderCars(cars);
       },
       error: (err) => {
@@ -21,8 +20,9 @@ $(document).ready(function () {
   loadCars();
 
   //create individual tweet
-  const createCarElement = function (carData) {
+  const createCarElement = (carData) => {
     const {
+      id,
       title,
       manufacturer,
       condition,
@@ -43,14 +43,14 @@ $(document).ready(function () {
     <div>
       <h3>${title}</h3>
       <ul>
-        <li>${manufacturer}</li>
-        <li>${condition}n</li>
-        <li>${price}</li>
-        <li>${mileage}</li>
+        <li>Manufacturer:${manufacturer}</li>
+        <li>Condition:${condition}</li>
+        <li>Price: $${price}</li>
+        <li>Mileage: ${mileage} miles</li>
       </ul>
       <footer>
         <ul>
-          <li>Learn More</li>
+          <li><a href="/api/widgets/${id}">Learn More</a></li>
           <li>Favourite</li>
         </ul>
       </footer>
