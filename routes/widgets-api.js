@@ -46,7 +46,7 @@ router.get("/my-listings", (req, res) => {
     .then((data) => {
       const cars = data.rows;
       //console.log(cars);
-      res.json({ cars });
+      res.render("index", cars[0]);
     })
     .catch((err) => {
       res.status(500).json({ error: err.message });
