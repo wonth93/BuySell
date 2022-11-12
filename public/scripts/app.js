@@ -38,8 +38,8 @@ $(document).ready(function () {
     //   return div.innerHTML;
     // };
 
-    const $car = $(`<article>
-    <div><img src="${thumbnail_photo_url}" width="200"></img></div>
+    const $car = $(`<article class="car">
+    <div><img src="${thumbnail_photo_url}" class="car-image" width="200"></img></div>
     <div>
       <h3>${title}</h3>
       <ul>
