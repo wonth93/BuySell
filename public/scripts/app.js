@@ -103,7 +103,7 @@ $(document).ready(function () {
 
     const loadCars = () => {
       $.ajax({
-        url: "/api/users/myListings",
+        url: "/cars/myListings",
         method: "GET",
         dataType: "json",
         success: (carsObject) => {
