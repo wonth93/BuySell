@@ -71,8 +71,8 @@ $(document).ready(function () {
         </ul>
         <footer>
           <ul>
-            <li><a href="/api/widgets/${id}">Learn More</a></li>
-            <li>Favourite</li>
+            <li class="learn-more" id="${id}">Learn More</li>
+            <li id="${id}">Favourite</li>
           </ul>
         </footer>
     </div>
@@ -90,6 +90,42 @@ $(document).ready(function () {
         $("#cars-container").prepend($car);
       }
     };
+
+    const loadSingleCar = (id) => {
+      const url = `/cars/${id}`;
+      $.get(url, (response) => {
+        console.log(
+          response.id,
+          response.title,
+          response.manufacturer,
+          response.condition,
+          response.description
+        );
+      });
+
+      // $main.empty();
+      // $main.append(`<`);
+    };
+
+    //adding event listener to cars container to grab id of individual cars are render single car page
+    $("#cars-container").on("click", (e) => {
+      //console.log("target", e.target.classList.contains("learn-more"));
+      //console.log("current", e.currentTarget);
+      if (e.target.classList.contains("learn-more")) {
+        console.log(e.target.id);
+        const car_id = e.target.id;
+        loadSingleCar(car_id);
+      }
+    });
+
+    // $(".car").on("click", (e) => {
+    //   console.log("target", e.target);
+    //   console.log("current", e.currentTarget);
+    // });
+
+    // $(".learn-more").on("click", (e) => {
+    //   console.log(this);
+    // });
   };
 
   //Calling load homepage when index loads
