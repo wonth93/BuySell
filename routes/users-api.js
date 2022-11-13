@@ -20,4 +20,14 @@ router.get("/", (req, res) => {
     });
 });
 
+router.get("/login/:id", (req, res) => {
+  res.cookie("user_id", req.params.id);
+  res.redirect("/");
+});
+
+router.post("/logout", (req, res) => {
+  res.clearCookie("user_id");
+  res.redirect("/");
+});
+
 module.exports = router;

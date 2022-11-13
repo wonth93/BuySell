@@ -8,7 +8,7 @@ $(document).ready(function () {
     <li class="my-favourites">My Favourites</li>
     <li class="create-listing">Create a New Listing</li>
     <li class="my-messages">My messages</li>
-    <li class="logout-button">Logout</li>
+    <form class="logout-button" method="POST" action="/api/users/logout"><button>Logout</button></form>
   </ul>`;
 
   $("#page-header").append($header);
@@ -71,7 +71,7 @@ $(document).ready(function () {
         </ul>
         <footer>
           <ul>
-            <li><a href="/api/widgets/${id}">Learn More</a></li>
+            <li><a href="/cars/${id}">Learn More</a></li>
             <li>Favourite</li>
           </ul>
         </footer>
@@ -156,7 +156,7 @@ $(document).ready(function () {
     loadMyMessages();
   });
 
-  $("header").on("click", ".logout-button", () => {
-    loadMyMessages();
-  });
+  // $("header").on("click", ".logout-button", () => {
+  //   loadMyMessages();
+  // });
 });
