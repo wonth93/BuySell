@@ -12,4 +12,14 @@ const getAllCars = () => {
   });
 };
 
-module.exports = { getUsers, getAllCars };
+const getMyListings = () => {
+  return db.query("SELECT * FROM cars INNER JOIN users ON users.id = seller_id WHERE users.id = 1")
+  .then((result) => {
+    return result.rows;
+  })
+  .then((error) => {
+    console.log(error.message);
+  });
+}
+
+module.exports = { getUsers, getAllCars, getMyListings };

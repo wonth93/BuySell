@@ -8,6 +8,7 @@
 const express = require("express");
 const router = express.Router();
 const db = require("../db/connection");
+const userQueries = require("../db/queries/users");
 
 router.get("/", (req, res) => {
   const query = `SELECT * FROM cars`;
@@ -39,20 +40,30 @@ router.get("/:id", (req, res) => {
     });
 });
 
-router.get("/my-listings", (req, res) => {
-  const { user_id } = req.cookies;
-  const query = `SELECT * FROM cars JOIN users ON seller_id = users.id WHERE seller_id = ${user_id}`;
-  console.log(query);
-  db.query(query)
-    .then((data) => {
-      const cars = data.rows;
-      console.log(cars);
-      //res.render("index", cars[0]);
-    })
-    .catch((err) => {
-      res.status(500).json({ error: err.message });
-    });
-});
+// router.get("/myListings", (req, res) => {
+//   const { user_id } = req.cookies;
+//   // const query = `SELECT * FROM cars JOIN users ON seller_id = users.id WHERE seller_id = ${user_id}`;
+//   console.log(user_id)
+//   userQueries
+//     .getMyListings(user_id)
+//     .then((data) => {
+//       // const cars = data.rows;
+//       // console.log(cars);
+//       //res.render("index", cars[0]);
+//       res.json({ data });
+//     })
+//     .catch((err) => {
+//       res.status(500).json({ error: err.message });
+//     });
+// });
+
+
+
+
+
+
+
+
 
 // router.get("/my-listings.html", (req, res) => {
 //   res.redirect("/my-listings");
