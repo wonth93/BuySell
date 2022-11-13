@@ -38,6 +38,8 @@ $(document).ready(function () {
       });
     };
 
+    //loadCars().then().catch()
+
     loadCars();
 
     //create individual tweet
