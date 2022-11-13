@@ -57,7 +57,7 @@ router.get("/:id", (req, res) => {
 //         res.status(500).json({ error: err.message });
 //       });
 //   }
-});
+// });
 
 // router.get("/my-listings.html", (req, res) => {
 //   res.redirect("/my-listings");
