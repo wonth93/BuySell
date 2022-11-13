@@ -8,6 +8,7 @@ $(document).ready(function () {
     <li class="my-favourites">My Favourites</li>
     <li class="create-listing">Create a New Listing</li>
     <li class="my-messages">My messages</li>
+    <li class="logout-button">Logout</li>
   </ul>`;
 
   $("#page-header").append($header);
@@ -23,7 +24,7 @@ $(document).ready(function () {
 
     const loadCars = () => {
       $.ajax({
-        url: "/api/widgets",
+        url: "/cars",
         method: "GET",
         dataType: "json",
         success: (carsObject) => {
@@ -98,6 +99,25 @@ $(document).ready(function () {
   const loadMyListings = function () {
     $main.empty();
     $main.append("<p>My listings here</p>");
+
+    const loadCars = () => {
+      $.ajax({
+        url: "/cars/my-listings",
+        method: "GET",
+        dataType: "json",
+        success: (carsObject) => {
+          //console.log(typeof carsObject);
+          const { cars } = carsObject;
+          //renderCars(cars);
+          console.log(cars);
+        },
+        error: (err) => {
+          console.log(`error: ${err}`);
+        },
+      });
+    };
+
+    loadCars();
   };
 
   const loadMyFavs = function () {
@@ -133,6 +153,10 @@ $(document).ready(function () {
   });
 
   $("header").on("click", ".my-messages", () => {
+    loadMyMessages();
+  });
+
+  $("header").on("click", ".logout-button", () => {
     loadMyMessages();
   });
 });
