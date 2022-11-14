@@ -60,12 +60,12 @@ $(document).ready(function () {
       // };
 
       const $car = $(`<article class="car">
-      <div><img src="${thumbnail_photo_url}" class="car-image" width="200"></img></div>
+      <div><img src="${thumbnail_photo_url}" class="car-image"></img></div>
       <div>
         <h3>${title}</h3>
         <ul>
-          <li>Manufacturer:${manufacturer}</li>
-          <li>Condition:${condition}</li>
+          <li>Manufacturer: ${manufacturer}</li>
+          <li>Condition: ${condition}</li>
           <li>Price: $${price}</li>
           <li>Mileage: ${mileage} miles</li>
         </ul>
@@ -139,12 +139,12 @@ $(document).ready(function () {
       // };
 
       const $car = $(`<article class="car">
-      <div><img src="${thumbnail_photo_url}" class="car-image" width="200"></img></div>
+      <div><img src="${thumbnail_photo_url}" class="car-image" ></img></div>
       <div>
         <h3>${title}</h3>
         <ul>
-          <li>Manufacturer:${manufacturer}</li>
-          <li>Condition:${condition}</li>
+          <li>Manufacturer: ${manufacturer}</li>
+          <li>Condition: ${condition}</li>
           <li>Price: $${price}</li>
           <li>Mileage: ${mileage} miles</li>
         </ul>
@@ -236,12 +236,12 @@ $(document).ready(function () {
       // };
 
       const $car = $(`<article class="car">
-      <div><img src="${thumbnail_photo_url}" class="car-image" width="200"></img></div>
+      <div><img src="${thumbnail_photo_url}" class="car-image"></img></div>
       <div>
         <h3>${title}</h3>
         <ul>
-          <li>Manufacturer:${manufacturer}</li>
-          <li>Condition:${condition}</li>
+          <li>Manufacturer ${manufacturer}</li>
+          <li>Condition: ${condition}</li>
           <li>Price: $${price}</li>
           <li>Mileage: ${mileage} miles</li>
         </ul>
