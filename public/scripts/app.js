@@ -59,7 +59,7 @@ $(document).ready(function () {
       //   return div.innerHTML;
       // };
 
-      const $car = $(`<article class="car">
+      const $car = $(`<article class="car" id=${id}>
       <div><img src="${thumbnail_photo_url}" class="car-image"></img></div>
       <div>
         <h3>${title}</h3>
@@ -139,7 +139,7 @@ $(document).ready(function () {
       //   return div.innerHTML;
       // };
 
-      const $car = $(`<article class="car">
+      const $car = $(`<article class="car" id=${id}>
       <div><img src="${thumbnail_photo_url}" class="car-image" ></img></div>
       <div>
         <h3>${title}</h3>
@@ -151,7 +151,7 @@ $(document).ready(function () {
         </ul>
         <footer>
           <ul>
-            <li class="delete-listing" id=${id}>Delete this listing</li>
+            <li class="delete-listing">Delete this listing</li>
             <li class="mark-sold">Mark As Sold</li>
           </ul>
         </footer>
@@ -171,33 +171,22 @@ $(document).ready(function () {
       }
     };
 
-    //Deleting a listing or marking a listing as sold
-    // $("#cars-container").on("click", (e) => {
-    //   //console.log(e.target);
-    //   //Delete a listing
-    //   const id = e.target.id;
-    //   console.log(id);
-    //   if (e.target.classList.contains("delete-listing")) {
-    //     // const id = e.target.id;
-    //     // console.log(id);
-    //     const url = `/delete/${id}`;
-    //     console.log(
-    //       "send post/delete request to:",
-    //       url,
-    //       "then call loadListings()"
-    //     );
-    //     //$.post(url).then(loadListings())
-    //   }
-
-    //   //Mark as sold
-    // });
-
+    //Delete a listing
     $("#cars-container").on("click", ".delete-listing", function (e) {
-      console.log(this);
+      const id = $(this).closest("article").attr("id");
+      const url = `api/users/myListings/${id}/delete`;
+      alert(`send a post/delete request to ${url} then call loadListings()`);
+    });
+
+    //Mark a listing as sold
+    $("#cars-container").on("click", ".mark-sold", function (e) {
+      const id = $(this).closest("article").attr("id");
+      const url = `api/users/myListings/${id}`;
+      alert(`send a post/update request to ${url} then call loadListings()`);
     });
   };
 
-  // Loading the my favourites
+  /////////////////// Loading the my favourites//////////////
   const loadMyFavs = function () {
     $main.empty();
     $main.append(` <h2 class="section-title">My favourites</h2>
@@ -240,7 +229,7 @@ $(document).ready(function () {
       //   return div.innerHTML;
       // };
 
-      const $car = $(`<article class="car">
+      const $car = $(`<article class="car" id=${id}>
       <div><img src="${thumbnail_photo_url}" class="car-image"></img></div>
       <div>
         <h3>${title}</h3>
@@ -253,7 +242,7 @@ $(document).ready(function () {
         <footer>
           <ul>
             <li><a href="/cars/${id}">Learn More</a></li>
-            <li>Favourite</li>
+            <li class="remove-fav">Remove from favourites</li>
           </ul>
         </footer>
     </div>
@@ -271,6 +260,12 @@ $(document).ready(function () {
         $("#cars-container").prepend($car);
       }
     };
+
+    $("#cars-container").on("click", ".remove-fav", function (e) {
+      const id = $(this).closest("article").attr("id");
+      const url = `api/users/myFavourites/${id}/delete`;
+      alert(`send a post/delete request ${url} then call loadFavs()`);
+    });
   };
 
   const loadCreateListing = function () {
