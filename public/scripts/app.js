@@ -11,7 +11,7 @@ $(document).ready(function () {
     <form class="logout-button" method="POST" action="/api/users/logout"><button>Logout</button></form>
   </ul>`;
 
-  $("#page-header").append($header);
+  $("#page-header").prepend($header);
 
   const $main = $("#main-content");
 
@@ -98,7 +98,7 @@ $(document).ready(function () {
   ///////////////////////Loading the my listings page/////////////////////////////
   const loadMyListings = function () {
     $main.empty();
-    $main.append(` <h2>My listing</h2>
+    $main.append(` <h2>My listings</h2>
     <section id="cars-container"></section>`);
 
     const loadListings = () => {
