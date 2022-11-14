@@ -1,7 +1,9 @@
 -- Drop and recreate Widgets table (Example)
 
 DROP TABLE IF EXISTS cars CASCADE;
-DROP TABLE IF EXISTS widgets;
+DROP TABLE IF EXISTS widgets CASCADE;
+DROP TABLE IF EXISTS cars_favourites CASCADE;
+DROP TABLE IF EXISTS messages CASCADE;
 -- CREATE TABLE widgets (
 --   id SERIAL PRIMARY KEY NOT NULL,
 --   user_id INTEGER REFERENCES users(id),
@@ -31,4 +33,20 @@ CREATE TABLE cars (
   -- post_code VARCHAR(255) NOT NULL,
 
   active BOOLEAN NOT NULL DEFAULT TRUE
+);
+
+CREATE TABLE cars_favourites (
+  id SERIAL PRIMARY KEY NOT NULL,
+  buyer_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
+  car_id INTEGER REFERENCES cars(id) ON DELETE CASCADE,
+  date_like TIMESTAMP
+);
+
+CREATE TABLE messages (
+  id SERIAL PRIMARY KEY NOT NULL,
+  sender_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
+  seller_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
+  car_id INTEGER REFERENCES cars(id) ON DELETE CASCADE,
+  date_sent TIMESTAMP,
+  message TEXT
 );

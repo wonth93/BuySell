@@ -11,13 +11,13 @@ const db = require("../db/connection");
 const userQueries = require("../db/queries/users");
 
 router.get("/", (req, res) => {
-  const query = `SELECT * FROM cars`;
-  console.log(query);
-  db.query(query)
-    .then((data) => {
-      const cars = data.rows;
-      //console.log(cars);
-      res.json({ cars });
+  // const query = `SELECT * FROM cars`;
+  userQueries
+    .getAllCars()
+    .then((cars) => {
+      // const cars = data.rows;
+      // console.log(cars);
+      res.send({ cars });
     })
     .catch((err) => {
       res.status(500).json({ error: err.message });
@@ -31,7 +31,7 @@ router.get("/:id", (req, res) => {
   db.query(query)
     .then((data) => {
       const car = data.rows;
-      console.log(car[0]);
+      // console.log(car[0]);
       // res.json({ car });
       res.json(car[0]);
     })
@@ -39,6 +39,13 @@ router.get("/:id", (req, res) => {
       res.status(500).json({ error: err.message });
     });
 });
+
+
+
+
+
+
+
 
 // router.get("/myListings", (req, res) => {
 //   const { user_id } = req.cookies;
@@ -56,14 +63,6 @@ router.get("/:id", (req, res) => {
 //       res.status(500).json({ error: err.message });
 //     });
 // });
-
-
-
-
-
-
-
-
 
 // router.get("/my-listings.html", (req, res) => {
 //   res.redirect("/my-listings");
