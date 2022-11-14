@@ -72,7 +72,7 @@ $(document).ready(function () {
         <footer>
           <ul>
             <li><a href="/cars/${id}">Learn More</a></li>
-            <li>Favourite</li>
+            <li class="add-fav">Favourite</li>
           </ul>
         </footer>
     </div>
@@ -90,6 +90,13 @@ $(document).ready(function () {
         $("#cars-container").prepend($car);
       }
     };
+
+    //Adding a car to favourites
+    $("#cars-container").on("click", ".add-fav", function (e) {
+      const id = $(this).closest("article").attr("id");
+      const url = `api/users/myFavourites/${id}`;
+      alert(`send a postrequest to ${url} then call loadFavs()`);
+    });
   };
 
   //Calling load homepage when index loads
