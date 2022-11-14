@@ -1,0 +1,15 @@
+.page-header {
+  height: 300px;
+  background-image: url("https://ibb.co/NFjkKpf");
+}
+
+.header-links {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  list-style-type: none;
+}
+
+.header-links > li {
+  padding: 20px 0px 20px 0px;
+}

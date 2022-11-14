@@ -25,7 +25,7 @@ router.get("/myListings", (req, res) => {
   // const user_id = req.cookies[user_id];
 
   userQueries
-    .getMyListings(1/* should be user_id*/)
+    .getMyListings(1 /* should be user_id*/)
     .then((cars) => {
       // console.log(cars);
       res.send({ cars });
@@ -39,27 +39,27 @@ router.get("/myFavourites", (req, res) => {
   // const user_id = req.cookies[user_id];
 
   userQueries
-  .getMyFavourites(1/* should be user_id*/)
-  .then((cars) => {
-      res.send({ cars });
-    })
-    .catch((err) => {
-      res.status(500).json({ error: err.message });
-    });
-});
-
-router.post("/createListing", (req, res) => {
-  // const user_id = req.cookies[user_id];
-  userQueries
-    .createNewListing({...req.body, seller_id: user_id})
+    .getMyFavourites(1 /* should be user_id*/)
     .then((cars) => {
       res.send({ cars });
     })
     .catch((err) => {
       res.status(500).json({ error: err.message });
     });
-
 });
+
+// router.post("/createListing", (req, res) => {
+//   // const user_id = req.cookies[user_id];
+//   userQueries
+//     .createNewListing({...req.body, seller_id: user_id})
+//     .then((cars) => {
+//       res.send({ cars });
+//     })
+//     .catch((err) => {
+//       res.status(500).json({ error: err.message });
+//     });
+
+// });
 
 // router.get("/myListings", (req, res) => {
 //   // const { user_id } = req.cookies;

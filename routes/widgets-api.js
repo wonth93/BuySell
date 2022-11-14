@@ -8,11 +8,11 @@
 const express = require("express");
 const router = express.Router();
 const db = require("../db/connection");
-const userQueries = require("../db/queries/users");
+const carQueries = require("../db/queries/users");
 
 router.get("/", (req, res) => {
   // const query = `SELECT * FROM cars`;
-  userQueries
+  carQueries
     .getAllCars()
     .then((cars) => {
       // const cars = data.rows;
@@ -34,6 +34,18 @@ router.get("/:id", (req, res) => {
       // console.log(car[0]);
       // res.json({ car });
       res.json(car[0]);
+    })
+    .catch((err) => {
+      res.status(500).json({ error: err.message });
+    });
+});
+
+router.post("/createListing", (req, res) => {
+  // const user_id = req.cookies[user_id];
+  carQueries
+    .createNewListing({ ...req.body, seller_id: user_id })
+    .then((cars) => {
+      res.send({ cars });
     })
     .catch((err) => {
       res.status(500).json({ error: err.message });

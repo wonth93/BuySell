@@ -2,12 +2,12 @@
 $(document).ready(function () {
   //grabbing all of the tweets via ajax
 
-  const $header = `<ul>
-    <li class="home">Home</li>
-    <li class="my-listings">My Listings</li>
-    <li class="my-favourites">My Favourites</li>
-    <li class="create-listing">Create a New Listing</li>
-    <li class="my-messages">My messages</li>
+  const $header = `<ul class="header-links">
+    <li id="home">Home</li>
+    <li id="my-listings">My Listings</li>
+    <li id="my-favourites">My Favourites</li>
+    <li id="create-listing">Create a New Listing</li>
+    <li id="my-messages">My messages</li>
     <form class="logout-button" method="POST" action="/api/users/logout"><button>Logout</button></form>
   </ul>`;
 
@@ -95,13 +95,13 @@ $(document).ready(function () {
   //Calling load homepage when index loads
   loadHomepage();
 
-  //Loading the my listings page
+  ///////////////////////Loading the my listings page/////////////////////////////
   const loadMyListings = function () {
     $main.empty();
     $main.append(` <h2>My listing</h2>
     <section id="cars-container"></section>`);
 
-    const loadCars = () => {
+    const loadListings = () => {
       $.ajax({
         url: "/api/users/myListings",
         method: "GET",
@@ -109,7 +109,7 @@ $(document).ready(function () {
         success: (carsObject) => {
           //console.log(typeof carsObject);
           const { cars } = carsObject;
-          renderCars(cars);
+          renderListings(cars);
         },
         error: (err) => {
           console.log(`error: ${err}`);
@@ -117,7 +117,7 @@ $(document).ready(function () {
       });
     };
 
-    loadCars();
+    loadListings();
 
     //create individual tweet
     const createCarElement = (carData) => {
@@ -150,8 +150,8 @@ $(document).ready(function () {
         </ul>
         <footer>
           <ul>
-            <li><a href="/cars/${id}">Learn More</a></li>
-            <li>Favourite</li>
+            <li class="delete-listing" id=${id}>Delete this listing</li>
+            <li class="mark-sold">Mark As Sold</li>
           </ul>
         </footer>
     </div>
@@ -161,7 +161,7 @@ $(document).ready(function () {
     };
 
     //rendering all of the tweets after grabbing them via ajax into the tweet container
-    const renderCars = (cars) => {
+    const renderListings = (cars) => {
       $("#cars-container").empty();
       console.log(cars);
       for (let car of cars) {
@@ -169,6 +169,27 @@ $(document).ready(function () {
         $("#cars-container").prepend($car);
       }
     };
+
+    //Deleting a listing or marking a listing as sold
+    $("#cars-container").on("click", (e) => {
+      //console.log(e.target);
+      //Delete a listing
+      const id = e.target.id;
+      console.log(id);
+      if (e.target.classList.contains("delete-listing")) {
+        // const id = e.target.id;
+        // console.log(id);
+        const url = `/delete/${id}`;
+        console.log(
+          "send post/delete request to:",
+          url,
+          "then call loadListings()"
+        );
+        //$.post(url).then(loadListings())
+      }
+
+      //Mark as sold
+    });
   };
 
   // Loading the my favourites
@@ -177,7 +198,7 @@ $(document).ready(function () {
     $main.append(` <h2>My favourites</h2>
     <section id="cars-container"></section>`);
 
-    const loadCars = () => {
+    const loadFavs = () => {
       $.ajax({
         url: "/api/users/myFavourites",
         method: "GET",
@@ -185,7 +206,7 @@ $(document).ready(function () {
         success: (carsObject) => {
           //console.log(typeof carsObject);
           const { cars } = carsObject;
-          renderCars(cars);
+          renderFavs(cars);
         },
         error: (err) => {
           console.log(`error: ${err}`);
@@ -193,7 +214,7 @@ $(document).ready(function () {
       });
     };
 
-    loadCars();
+    loadFavs();
 
     //create individual tweet
     const createCarElement = (carData) => {
@@ -237,7 +258,7 @@ $(document).ready(function () {
     };
 
     //rendering all of the tweets after grabbing them via ajax into the tweet container
-    const renderCars = (cars) => {
+    const renderFavs = (cars) => {
       $("#cars-container").empty();
       console.log(cars);
       for (let car of cars) {
@@ -258,23 +279,23 @@ $(document).ready(function () {
   };
 
   //Managing clicks on header to load different "pages"
-  $("header").on("click", ".home", () => {
+  $("header").on("click", "#home", () => {
     loadHomepage();
   });
 
-  $("header").on("click", ".my-listings", () => {
+  $("header").on("click", "#my-listings", () => {
     loadMyListings();
   });
 
-  $("header").on("click", ".my-favourites", () => {
+  $("header").on("click", "#my-favourites", () => {
     loadMyFavs();
   });
 
-  $("header").on("click", ".create-listing", () => {
+  $("header").on("click", "#create-listing", () => {
     loadCreateListing();
   });
 
-  $("header").on("click", ".my-messages", () => {
+  $("header").on("click", "#my-messages", () => {
     loadMyMessages();
   });
 
