@@ -9,15 +9,16 @@
 
 .header-links {
   width: 90%;
+  margin: auto;
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-between;
   align-items: center;
   list-style-type: none;
-  margin-bottom: 5em;
+  margin-bottom: 6em;
 }
 
 .header-links > li {
-  padding: 20px 0px 20px 0px;
+  padding: 2em 0px 2em 0px;
   color: white
 }
 
@@ -27,6 +28,7 @@
   max-width: 90%;
   margin: auto;
   color: white;
+  gap: 2em;
 }
 
 // .page-title h1 {

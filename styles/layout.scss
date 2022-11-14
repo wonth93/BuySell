@@ -1,17 +1,16 @@
 // See: https://sass-lang.com/
-
-body,
-html {
-  margin: 0;
-  background-color: rgb(247, 251, 254);
-  box-sizing: border-box;
-  font-family: 'Blinker', sans-serif;
-
-}
 *,
 *:before,
 *:after {
-  box-sizing: inherit;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body,
+html {
+  background-color: rgb(247, 251, 254);
+  font-family: 'Blinker', sans-serif;
 }
 
 #main-content {
