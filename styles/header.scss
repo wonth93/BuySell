@@ -1,6 +1,6 @@
 .page-header {
-  margin-bottom: 2em;
-  height: 30em;
+  margin-bottom: 2rem;
+  height: 30rem;
   background-image: url("https://i.ibb.co/8bRFWxD/header-image-600h.jpg");
   background-repeat: no-repeat;
   //background-attachment: fixed;
@@ -14,16 +14,16 @@
   justify-content: space-between;
   align-items: center;
   list-style-type: none;
-  margin-bottom: 6em;
+  margin-bottom: 6rem;
 }
 
 .header-links > li {
-  padding: 2em 0px 2em 0px;
+  padding: 2rem 0px 2rem 0px;
   color: white
 }
 
 .header-links > li:hover {
-  padding: 2em 0px 2em 0px;
+  padding: 2rem 0px 2rem 0px;
   color: rgb(230, 226, 255);
   // text-decoration: underline;
 }
@@ -34,11 +34,11 @@
   max-width: 90%;
   margin: auto;
   color: white;
-  gap: 2em;
+  gap: 2rem;
 }
 
 .page-title h1 {
-  font-size: 3em;
+  font-size: 3rem;
 }
 
 // .page-title h1 {

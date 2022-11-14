@@ -2,7 +2,7 @@
   width: 100%;
   border: 2px solid black;
   //padding: 10px;
-  margin-bottom: 1.5em;
+  margin-bottom: 1.5rem;
   display: flex;
   gap: 2em;
 }
@@ -12,5 +12,24 @@
 }
 
 .car-image {
-  width: 300px;
+  width: 20em;
+}
+.car-info {
+  width: 100%;
+}
+
+.car-info h3 {
+  margin: 1.5em 0px 1.5em 0px;
+
+}
+
+.car-details {
+  width: 90%;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.car-details ul {
+  list-style-type: none;
 }

@@ -50,6 +50,7 @@ $(document).ready(function () {
         thumbnail_photo_url,
         mileage,
         price,
+        description,
       } = carData;
       // const timePassed = timeago.format(created_at);
 
@@ -61,13 +62,15 @@ $(document).ready(function () {
 
       const $car = $(`<article class="car" id=${id}>
       <div><img src="${thumbnail_photo_url}" class="car-image"></img></div>
-      <div>
+      <div class="car-info">
         <h3>${title}</h3>
+        <div class="car-details">
         <ul>
           <li>Manufacturer: ${manufacturer}</li>
           <li>Condition: ${condition}</li>
           <li>Price: $${price}</li>
           <li>Mileage: ${mileage} miles</li>
+          <li>Description: ${description}</li>
         </ul>
         <footer>
           <ul>
@@ -75,6 +78,7 @@ $(document).ready(function () {
             <li class="add-fav">Favourite</li>
           </ul>
         </footer>
+        </div>
     </div>
     </article>`);
 
@@ -137,6 +141,7 @@ $(document).ready(function () {
         thumbnail_photo_url,
         mileage,
         price,
+        description,
       } = carData;
       // const timePassed = timeago.format(created_at);
 
@@ -148,13 +153,15 @@ $(document).ready(function () {
 
       const $car = $(`<article class="car" id=${id}>
       <div><img src="${thumbnail_photo_url}" class="car-image" ></img></div>
-      <div>
+      <div class="car-info">
         <h3>${title}</h3>
+        <div class="car-details">
         <ul>
           <li>Manufacturer: ${manufacturer}</li>
           <li>Condition: ${condition}</li>
           <li>Price: $${price}</li>
           <li>Mileage: ${mileage} miles</li>
+          <li>Description: ${description}</li>
         </ul>
         <footer>
           <ul>
@@ -162,6 +169,7 @@ $(document).ready(function () {
             <li class="mark-sold">Mark As Sold</li>
           </ul>
         </footer>
+        </div>
     </div>
     </article>`);
 
@@ -227,6 +235,7 @@ $(document).ready(function () {
         thumbnail_photo_url,
         mileage,
         price,
+        description,
       } = carData;
       // const timePassed = timeago.format(created_at);
 
@@ -238,13 +247,15 @@ $(document).ready(function () {
 
       const $car = $(`<article class="car" id=${id}>
       <div><img src="${thumbnail_photo_url}" class="car-image"></img></div>
-      <div>
+      <div class="car-info">
         <h3>${title}</h3>
+        <div class="car-details">
         <ul>
           <li>Manufacturer ${manufacturer}</li>
           <li>Condition: ${condition}</li>
           <li>Price: $${price}</li>
           <li>Mileage: ${mileage} miles</li>
+          <li>Description: ${description}</li>
         </ul>
         <footer>
           <ul>
@@ -252,6 +263,7 @@ $(document).ready(function () {
             <li class="remove-fav">Remove from favourites</li>
           </ul>
         </footer>
+        </div>
     </div>
     </article>`);
 
