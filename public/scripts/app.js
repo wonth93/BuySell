@@ -19,7 +19,7 @@ $(document).ready(function () {
 
   const loadHomepage = function () {
     $main.empty();
-    $main.append(` <h2>All Cars</h2>
+    $main.append(` <h2 class="section-title">All Cars</h2>
     <section id="cars-container"></section>`);
 
     const loadCars = () => {
@@ -98,7 +98,7 @@ $(document).ready(function () {
   ///////////////////////Loading the my listings page/////////////////////////////
   const loadMyListings = function () {
     $main.empty();
-    $main.append(` <h2>My listings</h2>
+    $main.append(` <h2 class="section-title">My listings</h2>
     <section id="cars-container"></section>`);
 
     const loadListings = () => {
@@ -121,6 +121,7 @@ $(document).ready(function () {
 
     //create individual tweet
     const createCarElement = (carData) => {
+      console.log(carData);
       const {
         id,
         title,
@@ -171,31 +172,35 @@ $(document).ready(function () {
     };
 
     //Deleting a listing or marking a listing as sold
-    $("#cars-container").on("click", (e) => {
-      //console.log(e.target);
-      //Delete a listing
-      const id = e.target.id;
-      console.log(id);
-      if (e.target.classList.contains("delete-listing")) {
-        // const id = e.target.id;
-        // console.log(id);
-        const url = `/delete/${id}`;
-        console.log(
-          "send post/delete request to:",
-          url,
-          "then call loadListings()"
-        );
-        //$.post(url).then(loadListings())
-      }
+    // $("#cars-container").on("click", (e) => {
+    //   //console.log(e.target);
+    //   //Delete a listing
+    //   const id = e.target.id;
+    //   console.log(id);
+    //   if (e.target.classList.contains("delete-listing")) {
+    //     // const id = e.target.id;
+    //     // console.log(id);
+    //     const url = `/delete/${id}`;
+    //     console.log(
+    //       "send post/delete request to:",
+    //       url,
+    //       "then call loadListings()"
+    //     );
+    //     //$.post(url).then(loadListings())
+    //   }
 
-      //Mark as sold
+    //   //Mark as sold
+    // });
+
+    $("#cars-container").on("click", ".delete-listing", function (e) {
+      console.log(this);
     });
   };
 
   // Loading the my favourites
   const loadMyFavs = function () {
     $main.empty();
-    $main.append(` <h2>My favourites</h2>
+    $main.append(` <h2 class="section-title">My favourites</h2>
     <section id="cars-container"></section>`);
 
     const loadFavs = () => {

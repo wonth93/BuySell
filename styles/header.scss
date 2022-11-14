@@ -22,6 +22,12 @@
   color: white
 }
 
+.header-links > li:hover {
+  padding: 2em 0px 2em 0px;
+  color: rgb(230, 226, 255);
+  // text-decoration: underline;
+}
+
 .page-title {
   display: flex;
   flex-direction: column;
@@ -29,6 +35,10 @@
   margin: auto;
   color: white;
   gap: 2em;
+}
+
+.page-title h1 {
+  font-size: 3em;
 }
 
 // .page-title h1 {
