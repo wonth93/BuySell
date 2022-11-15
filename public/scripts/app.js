@@ -151,7 +151,7 @@ $(document).ready(function () {
       //   return div.innerHTML;
       // };
 
-      const $car = $(`<article class="car" id=${id}>
+      const $car = $(`<article class="car fade-in-down" id=${id}>
       <div><img src="${thumbnail_photo_url}" class="car-image" ></img></div>
       <div class="car-info">
         <h3>${title}</h3>

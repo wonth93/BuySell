@@ -41,6 +41,34 @@
   font-size: 3rem;
 }
 
+.page-title h1 {
+  animation: fade-in-down 2s ease 1;
+}
+@keyframes fade-in-down {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.page-title h2 {
+  animation: fade-in-down 5s ease 1;
+}
+@keyframes fade-in-down {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 // .page-title h1 {
 //   align-self: center;
 // }

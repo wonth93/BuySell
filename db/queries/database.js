@@ -15,7 +15,7 @@ const getAllCars = () => {
 const getMyListings = (user_id) => {
   return db
     .query(
-      `SELECT cars.* FROM cars INNER JOIN users ON users.id = seller_id WHERE seller_id = $1`,
+      `SELECT * FROM cars INNER JOIN users ON users.id = seller_id WHERE seller_id = $1`,
       [user_id]
     )
     .then((result) => {
