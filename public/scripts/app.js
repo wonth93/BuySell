@@ -252,6 +252,7 @@ $(document).ready(function () {
     const createCarElement = (carData) => {
       const {
         id,
+        car_fav_id,
         title,
         manufacturer,
         condition,
@@ -283,7 +284,7 @@ $(document).ready(function () {
         <footer>
           <ul>
             <li><button class="learn-more">Learn More</button></li>
-            <li><form class="remove-fav" method="POST" action="/api/users/myFavourites/${id}/delete"><button>Remove from favourites</button></form><li>
+            <li><form class="remove-fav" method="POST" action="/api/users/myFavourites/${car_fav_id}/delete"><button type="submit">Remove from favourites</button></form><li>
           </ul>
         </footer>
         </div>
