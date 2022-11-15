@@ -369,18 +369,15 @@ $(document).ready(function () {
               <li>Price: $${price}</li>
               <li>Mileage: ${mileage}</li>
               <li>Description: ${description}</li>
+              <li><button>Favourite</button></li>
             </ul>
-            <footer>
-              <ul>
-                <li><button>Favourite</button></li>
-              </ul>
-            </footer>
-        </div>
-      </article>
-      <form class="send-message" method="POST" action="api/users/post-msg-to-user/${seller_id}">
+            <h3>Message the seller about this car</h3>
+            <form class="send-message" method="POST" action="api/users/post-msg-to-user/${seller_id}">
         <textarea name="text" class="feedback-input" placeholder="Comment"></textarea>
         <input type="submit" value="SUBMIT"/>
     </form>
+        </div>
+      </article>
     </section>`);
 
       $main.append($singleCar);
