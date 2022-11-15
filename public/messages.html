@@ -11,15 +11,12 @@
       <h3 class="section-title">My Messages</h3>
       <section class="messages-container" id="seller_id">
         <article class="message">
-          <!-- <div><img src="https://images.pexels.com/photos/8839772/pexels-photo-8839772.jpeg?auto=compress&cs=tinysrgb&w=600" width="600"></img></div> -->
           <div class="message-details">
             <h3>Message Title</h3>
             <ul>
               <li>From User 1</li>
               <li>About Car 1</li>
               <li>Message Body</li>
-              <li>mileage</li>
-              <li>Description</li>
             </ul>
             <!-- <footer>
               <ul>
@@ -27,7 +24,7 @@
                 <li><button>Favourite</button></li>
               </ul>
             </footer> -->
-          </div>
+          </footer>
           <div class="reply-message">
             <h3>Respond to Message</h3>
             <form
@@ -36,16 +33,10 @@
               action="api/users/post-msg-to-user/${buyer_id}"
             >
               <input
-                name="name"
+                name="subject"
                 type="text"
                 class="feedback-input"
-                placeholder="Name"
-              />
-              <input
-                name="email"
-                type="text"
-                class="feedback-input"
-                placeholder="Email"
+                placeholder="subject"
               />
               <textarea
                 name="text"
@@ -54,7 +45,7 @@
               ></textarea>
               <input type="submit" value="SUBMIT" />
             </form>
-          </div>
+          </footer>
         </article>
       </section>
     </main>

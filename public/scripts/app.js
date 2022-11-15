@@ -88,7 +88,7 @@ $(document).ready(function () {
     //rendering all of the tweets after grabbing them via ajax into the tweet container
     const renderCars = (cars) => {
       $("#cars-container").empty();
-      console.log(cars);
+      //console.log(cars);
       for (let car of cars) {
         const $car = createCarElement(car);
         $("#cars-container").prepend($car);
@@ -296,7 +296,7 @@ $(document).ready(function () {
     //rendering all of the tweets after grabbing them via ajax into the tweet container
     const renderFavs = (cars) => {
       $("#cars-container").empty();
-      console.log(cars);
+      //console.log(cars);
       for (let car of cars) {
         const $car = createCarElement(car);
         $("#cars-container").prepend($car);
@@ -321,12 +321,6 @@ $(document).ready(function () {
   const loadCreateListing = function () {
     $main.empty();
     $main.append("<p>Create Listing Form Here</p>");
-  };
-
-  /////////////Loading messages page/////////////////////////
-  const loadMyMessages = function () {
-    $main.empty();
-    $main.append("<p>My messages</p>");
   };
 
   ///////// Rendering an individual car page //////////////
@@ -384,8 +378,6 @@ $(document).ready(function () {
         </div>
       </article>
       <form class="send-message" method="POST" action="api/users/post-msg-to-user/${seller_id}">
-        <input name="name" type="text" class="feedback-input" placeholder="Name" />
-        <input name="Subject" type="text" class="feedback-input" placeholder="Subject" />
         <textarea name="text" class="feedback-input" placeholder="Comment"></textarea>
         <input type="submit" value="SUBMIT"/>
     </form>
@@ -398,6 +390,77 @@ $(document).ready(function () {
         alert(`message sent to seller: ${seller_id}`);
       });
     };
+  };
+
+  /////////////Loading messages page/////////////////////////
+  const loadMyMessages = function () {
+    $main.empty();
+    $main.append(`<h2 class="section-title">My Messages</h2>
+    <section id="messages-container"></section>`);
+
+    const loadMessages = () => {
+      $.ajax({
+        url: "/api/users/myMessages",
+        method: "GET",
+        dataType: "json",
+        success: (messagesObject) => {
+          //console.log(typeof carsObject);
+          const { messages } = messagesObject;
+          renderMessages(messages);
+          //console.log(messages);
+        },
+        error: (err) => {
+          console.log(`error: ${err}`);
+        },
+      });
+    };
+
+    loadMessages();
+
+    const createMessageElement = (singleMessage) => {
+      const { id, sender_id, receiver_id, car_id, date_sent, message } =
+        singleMessage;
+
+      const $message = $(`<article class="message">
+    <div class="message-details">
+      <h3>Message From User ${sender_id} about Car ${car_id}</h3>
+      <p>Recieved: ${date_sent}</p>
+      <p>${message}</p>
+    </div>
+    <div class="reply-message">
+      <h3>Respond to Message</h3>
+      <form
+        class="send-message"
+        method="POST"
+        action="api/users/post-msg-to-user/${sender_id}"
+      >
+        <textarea
+          name="text"
+          class="feedback-input"
+          placeholder="Comment"
+        ></textarea>
+        <input type="submit" value="SUBMIT" />
+      </form>
+    </div>
+  </article>`);
+
+      return $message;
+    };
+
+    const renderMessages = (messages) => {
+      $("#messages_container").empty();
+      for (let message of messages) {
+        const $message = createMessageElement(message);
+        $("#messages-container").prepend($message);
+      }
+    };
+    // const renderCars = (cars) => {
+    //   $("#cars-container").empty();
+    //   //console.log(cars);
+    //   for (let car of cars) {
+    //     const $car = createCarElement(car);
+    //     $("#cars-container").prepend($car);
+    //   }
   };
 
   //////////////Managing clicks on header to load different "pages"/////////

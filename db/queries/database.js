@@ -93,7 +93,7 @@ const addFavourite = (cars) => {
 const getMyMessages = (user_id) => {
   return db
     .query(
-      `SELECT messages.*, FROM messages INNER JOIN on users ON users.id = messages.receiver_id WHERE receiver_id = $1`,
+      `SELECT messages.* FROM messages INNER JOIN users ON users.id = receiver_id WHERE receiver_id = $1 ORDER BY date_sent`,
       [user_id]
     )
     .then((result) => {

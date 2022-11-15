@@ -93,6 +93,23 @@ router.post("/myFavourites/:id/delete", (req, res) => {
     });
 });
 
+// Get my messages
+router.get("/myMessages", (req, res) => {
+  const user_id = req.cookies.user_id;
+  //console.log(user_id);
+
+  userQueries
+    .getMyMessages(user_id)
+    .then((messages) => {
+      // console.log(cars);
+      res.send({ messages });
+    })
+    .catch((err) => {
+      res.status(500).json({ error: err.message });
+    });
+});
+
+// Login and Logout routes
 router.get("/login/:id", (req, res) => {
   res.cookie("user_id", req.params.id);
   res.redirect("/");
