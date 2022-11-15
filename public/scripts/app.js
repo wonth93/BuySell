@@ -72,7 +72,7 @@ $(document).ready(function () {
           <li>Mileage: ${mileage} miles</li>
           <li>Description: ${description}</li>
         </ul>
-        <footer>
+        <footer class="car-actions">
           <ul>
             <li><button><a href="/cars/${id}">Learn More</a></button></li>
             <li><button>Message Seller</button>
@@ -203,6 +203,11 @@ $(document).ready(function () {
     //   loadListings();
     //   //loadHomepage();
     // });
+    $("#cars-container").on("click", ".delete-listing", function (e) {
+      const id = $(this).closest("article").attr("id");
+      //const url = `api/users/myFavourites/${id}/delete`;
+      alert(`Deleted car #${id} from your listings`);
+    });
 
     //Mark a listing as sold
     $("#cars-container").on("click", ".mark-sold", function (e) {
@@ -295,8 +300,8 @@ $(document).ready(function () {
 
     $("#cars-container").on("click", ".remove-fav", function (e) {
       const id = $(this).closest("article").attr("id");
-      const url = `api/users/myFavourites/${id}/delete`;
-      alert(`send a post/delete request ${url} then call loadFavs()`);
+      //const url = `api/users/myFavourites/${id}/delete`;
+      alert(`Deleted car #${id} from Favourites`);
     });
   };
 
@@ -308,6 +313,11 @@ $(document).ready(function () {
   const loadMyMessages = function () {
     $main.empty();
     $main.append("<p>My messages</p>");
+  };
+
+  const loadSingleCar = function () {
+    $main.empty();
+    $main.append("<p>Create Listing Form Here</p>");
   };
 
   //Managing clicks on header to load different "pages"
