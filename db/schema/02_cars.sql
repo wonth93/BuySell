@@ -45,7 +45,7 @@ CREATE TABLE cars_favourites (
 CREATE TABLE messages (
   id SERIAL PRIMARY KEY NOT NULL,
   sender_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
-  seller_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
+  receiver_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
   car_id INTEGER REFERENCES cars(id) ON DELETE CASCADE,
   date_sent TIMESTAMP,
   message TEXT

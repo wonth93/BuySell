@@ -74,8 +74,7 @@ $(document).ready(function () {
         </ul>
         <footer class="car-actions">
           <ul>
-            <li><button><a href="/cars/${id}">Learn More</a></button></li>
-            <li><button>Message Seller</button>
+            <li><button class="learn-more">Learn More</button></li>
             <li><form class="add-fav" method="POST" action="/api/users/myFavourites"><button>Favourite</button></form><li>
           </ul>
         </footer>
@@ -89,7 +88,7 @@ $(document).ready(function () {
     //rendering all of the tweets after grabbing them via ajax into the tweet container
     const renderCars = (cars) => {
       $("#cars-container").empty();
-      console.log(cars);
+      //console.log(cars);
       for (let car of cars) {
         const $car = createCarElement(car);
         $("#cars-container").prepend($car);
@@ -101,6 +100,13 @@ $(document).ready(function () {
       const id = $(this).closest("article").attr("id");
       const url = `api/users/myFavourites/${id}`;
       alert(`send a postrequest to ${url} then call loadFavs()`);
+    });
+
+    $("#cars-container").on("click", ".learn-more", function () {
+      //loadSingleCarPage();
+      const id = $(this).closest("article").attr("id");
+      //alert(`rendering message form about ${id} car`);
+      loadSingleCarPage(id);
     });
   };
 
@@ -246,6 +252,7 @@ $(document).ready(function () {
     const createCarElement = (carData) => {
       const {
         id,
+        car_fav_id,
         title,
         manufacturer,
         condition,
@@ -276,9 +283,8 @@ $(document).ready(function () {
         </ul>
         <footer>
           <ul>
-            <li><button><a href="/cars/${id}">Learn More</a></button></li>
-            <li><button>Message Seller</button>
-            <li><form class="remove-fav" method="POST" action="/api/users/myFavourites/${id}/delete"><button>Remove from favourites</button></form><li>
+            <li><button class="learn-more">Learn More</button></li>
+            <li><form class="remove-fav" method="POST" action="/api/users/myFavourites/${car_fav_id}/delete"><button type="submit">Remove from favourites</button></form><li>
           </ul>
         </footer>
         </div>
@@ -291,7 +297,7 @@ $(document).ready(function () {
     //rendering all of the tweets after grabbing them via ajax into the tweet container
     const renderFavs = (cars) => {
       $("#cars-container").empty();
-      console.log(cars);
+      //console.log(cars);
       for (let car of cars) {
         const $car = createCarElement(car);
         $("#cars-container").prepend($car);
@@ -303,24 +309,159 @@ $(document).ready(function () {
       //const url = `api/users/myFavourites/${id}/delete`;
       alert(`Deleted car #${id} from Favourites`);
     });
+
+    $("#cars-container").on("click", ".learn-more", function () {
+      //loadSingleCarPage();
+      const id = $(this).closest("article").attr("id");
+      //alert(`rendering message form about ${id} car`);
+      loadSingleCarPage(id);
+    });
   };
 
+  /////////Load the createListing form//////////////////////
   const loadCreateListing = function () {
     $main.empty();
     $main.append("<p>Create Listing Form Here</p>");
   };
 
+  ///////// Rendering an individual car page //////////////
+  const loadSingleCarPage = function (id) {
+    $main.empty();
+    $main.append(`<h3 class="section-title">View Car Details</h3>`);
+    const url = `/cars/${id}`;
+
+    $.ajax({
+      url: url,
+      method: "GET",
+      dataType: "json",
+      success: (carObject) => {
+        //console.log(typeof carsObject);
+        // const { cars } = carsObject;
+        createSingleCar(carObject);
+        //console.log(carObject);
+      },
+      error: (err) => {
+        console.log(`error: ${err}`);
+      },
+    });
+
+    const createSingleCar = function (carObject) {
+      const {
+        id,
+        seller_id,
+        title,
+        manufacturer,
+        condition,
+        thumbnail_photo_url,
+        mileage,
+        price,
+        description,
+        active,
+      } = carObject;
+
+      const $singleCar = $(`<section class="single-car-container" id=${id}>
+      <article class="single-car">
+          <div><img src=${thumbnail_photo_url} width="600"></img></div>
+          <div class="single-car-details">
+            <h2>${title}</h2>
+            <ul>
+              <li>Manufacturer: ${manufacturer}</li>
+              <li>Condition: ${condition}</li>
+              <li>Price: $${price}</li>
+              <li>Mileage: ${mileage}</li>
+              <li>Description: ${description}</li>
+              <li><button>Favourite</button></li>
+            </ul>
+            <h3>Message the seller about this car</h3>
+            <form class="send-message" method="POST" action="api/users/post-msg-to-user/${seller_id}">
+        <textarea name="text" class="feedback-input" placeholder="Comment"></textarea>
+        <input type="submit" value="SUBMIT"/>
+    </form>
+        </div>
+      </article>
+    </section>`);
+
+      $main.append($singleCar);
+
+      ////////Send message functionality////////////
+      $(".send-message").on("click", function () {
+        alert(`message sent to seller: ${seller_id}`);
+      });
+    };
+  };
+
+  /////////////Loading messages page/////////////////////////
   const loadMyMessages = function () {
     $main.empty();
-    $main.append("<p>My messages</p>");
+    $main.append(`<h2 class="section-title">My Messages</h2>
+    <section id="messages-container"></section>`);
+
+    const loadMessages = () => {
+      $.ajax({
+        url: "/api/users/myMessages",
+        method: "GET",
+        dataType: "json",
+        success: (messagesObject) => {
+          //console.log(typeof carsObject);
+          const { messages } = messagesObject;
+          renderMessages(messages);
+          //console.log(messages);
+        },
+        error: (err) => {
+          console.log(`error: ${err}`);
+        },
+      });
+    };
+
+    loadMessages();
+
+    const createMessageElement = (singleMessage) => {
+      const { id, sender_id, receiver_id, car_id, date_sent, message } =
+        singleMessage;
+
+      const $message = $(`<article class="message">
+    <div class="message-details">
+      <h3>Message From User ${sender_id} about Car ${car_id}</h3>
+      <p>Recieved: ${date_sent}</p>
+      <p>${message}</p>
+    </div>
+    <div class="reply-message">
+      <h3>Respond to Message</h3>
+      <form
+        class="send-message"
+        method="POST"
+        action="api/users/post-msg-to-user/${sender_id}"
+      >
+        <textarea
+          name="text"
+          class="feedback-input"
+          placeholder="Comment"
+        ></textarea>
+        <input type="submit" value="SUBMIT" />
+      </form>
+    </div>
+  </article>`);
+
+      return $message;
+    };
+
+    const renderMessages = (messages) => {
+      $("#messages_container").empty();
+      for (let message of messages) {
+        const $message = createMessageElement(message);
+        $("#messages-container").prepend($message);
+      }
+    };
+    // const renderCars = (cars) => {
+    //   $("#cars-container").empty();
+    //   //console.log(cars);
+    //   for (let car of cars) {
+    //     const $car = createCarElement(car);
+    //     $("#cars-container").prepend($car);
+    //   }
   };
 
-  const loadSingleCar = function () {
-    $main.empty();
-    $main.append("<p>Create Listing Form Here</p>");
-  };
-
-  //Managing clicks on header to load different "pages"
+  //////////////Managing clicks on header to load different "pages"/////////
   $("header").on("click", "#home", () => {
     loadHomepage();
   });
@@ -340,6 +481,14 @@ $(document).ready(function () {
   $("header").on("click", "#my-messages", () => {
     loadMyMessages();
   });
+
+  /////////////Managing clicks on message seller button/////////
+  // $("#cars-container").on("click", ".learn-more", function () {
+  //   //loadSingleCarPage();
+  //   const id = $(this).closest("article").attr("id");
+  //   //alert(`rendering message form about ${id} car`);
+  //   loadSingleCarPage(id);
+  // });
 
   // $("header").on("click", ".logout-button", () => {
   //   loadMyMessages();
