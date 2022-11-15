@@ -5,10 +5,11 @@
   margin-bottom: 1.5rem;
   display: flex;
   gap: 2em;
+  background-color: rgb(243, 243, 243);
 }
 
 .car:hover {
-  box-shadow: 10px 10px 5px #c3c5cd;
+  box-shadow: 10px 10px 5px #a0a1a9;
 }
 
 .car-image {

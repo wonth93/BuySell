@@ -7,7 +7,7 @@
 
 const express = require("express");
 const router = express.Router();
-const userQueries = require("../db/queries/users");
+const userQueries = require("../db/queries/database");
 const db = require("../db/connection");
 
 router.get("/", (req, res) => {
@@ -22,10 +22,11 @@ router.get("/", (req, res) => {
 });
 
 router.get("/myListings", (req, res) => {
-  // const user_id = req.cookies[user_id];
+  //const user_id = req.cookies.user_id;
+  //console.log(user_id);
 
   userQueries
-    .getMyListings(1 /* should be user_id*/)
+    .getMyListings(1)
     .then((cars) => {
       // console.log(cars);
       res.send({ cars });

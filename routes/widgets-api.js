@@ -8,7 +8,7 @@
 const express = require("express");
 const router = express.Router();
 const db = require("../db/connection");
-const carQueries = require("../db/queries/users");
+const carQueries = require("../db/queries/database");
 
 router.get("/", (req, res) => {
   // const query = `SELECT * FROM cars`;
