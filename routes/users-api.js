@@ -22,11 +22,11 @@ router.get("/", (req, res) => {
 });
 
 router.get("/myListings", (req, res) => {
-  //const user_id = req.cookies.user_id;
+  const user_id = req.cookies.user_id;
   //console.log(user_id);
 
   userQueries
-    .getMyListings(1)
+    .getMyListings(user_id)
     .then((cars) => {
       // console.log(cars);
       res.send({ cars });
@@ -37,10 +37,10 @@ router.get("/myListings", (req, res) => {
 });
 
 router.get("/myFavourites", (req, res) => {
-  // const user_id = req.cookies[user_id];
+  const user_id = req.cookies.user_id;
 
   userQueries
-    .getMyFavourites(1 /* should be user_id*/)
+    .getMyFavourites(user_id)
     .then((cars) => {
       res.send({ cars });
     })
