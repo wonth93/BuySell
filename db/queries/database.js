@@ -90,6 +90,20 @@ const addFavourite = (cars) => {
     });
 };
 
+const getMyMessages = (user_id) => {
+  return db
+    .query(
+      `SELECT messages.*, FROM messages INNER JOIN on users ON users.id = messages.receiver_id WHERE receiver_id = $1`,
+      [user_id]
+    )
+    .then((result) => {
+      return result.rows;
+    })
+    .catch((error) => {
+      console.log(error.message);
+    });
+};
+
 module.exports = {
   getUsers,
   getAllCars,
@@ -97,4 +111,5 @@ module.exports = {
   getMyFavourites,
   createNewListing,
   addFavourite,
+  getMyMessages,
 };
