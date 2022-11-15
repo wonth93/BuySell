@@ -53,8 +53,8 @@ router.get("/myFavourites", (req, res) => {
 
 router.get("/myFavourites/:id", (req, res) => {
   const id = req.params.id;
-
-  const query = `SELECT cars.* FROM cars_favourites INNER JOIN users ON users.id = buyer_id INNER JOIN cars ON cars.id = car_id WHERE cars_favourites.id = ${id}`;
+  // const user_id = req.cookies.user_id;
+  const query = `SELECT cars.*, cars_favourites.id FROM cars_favourites INNER JOIN users ON users.id = buyer_id INNER JOIN cars ON cars.id = car_id WHERE cars_favourites.id = ${id}`;
   db.query(query)
     .then((data) => {
       const car = data.rows;
@@ -78,20 +78,6 @@ router.post("/myFavourites/:id/delete", (req, res) => {
     })
 
 })
-
-
-// // Create listing
-// router.post("/createListing", (req, res) => {
-//   const user_id = req.cookies.user_id;
-//   carQueries
-//     .createNewListing({ ...req.body, seller_id: user_id })
-//     .then((cars) => {
-//       res.send({ cars });
-//     })
-//     .catch((err) => {
-//       res.status(500).json({ error: err.message });
-//     });
-// });
 
 
 router.get("/login/:id", (req, res) => {

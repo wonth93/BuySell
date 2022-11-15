@@ -29,7 +29,7 @@ const getMyListings = (user_id) => {
 const getMyFavourites = (user_id) => {
   return db
     .query(
-      `SELECT cars.* FROM cars_favourites INNER JOIN users ON users.id = buyer_id INNER JOIN cars ON cars.id = car_id WHERE buyer_id = $1`,
+      `SELECT cars.*, cars_favourites.id FROM cars_favourites INNER JOIN users ON users.id = buyer_id INNER JOIN cars ON cars.id = car_id WHERE buyer_id = $1`,
       [user_id]
     )
     .then((result) => {

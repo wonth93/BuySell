@@ -40,6 +40,19 @@ router.get("/:id", (req, res) => {
     });
 });
 
+// // Create listing
+// router.post("/createListing", (req, res) => {
+//   const user_id = req.cookies.user_id;
+//   carQueries
+//     .createNewListing({ ...req.body, seller_id: user_id })
+//     .then((cars) => {
+//       res.send({ cars });
+//     })
+//     .catch((err) => {
+//       res.status(500).json({ error: err.message });
+//     });
+// });
+
 // Delete listing
 router.post("/:id/delete", (req, res) => {
   const id = req.params.id;
