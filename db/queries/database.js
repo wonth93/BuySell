@@ -71,10 +71,26 @@ const createNewListing = (cars) => {
     });
 };
 
+const addFavourite = (cars) => {
+  return db
+    .query(`
+    INSERT INTO cars_favourites (buyer_id, car_id)
+    VALUES ($1, $2)
+    RETURNING *;
+    `, [cars.buyer_id, cars.car_id])
+    .then((result) => {
+      return result.rows[0];
+    })
+    .catch((error) => {
+      console.log(error.message);
+    });
+}
+
 module.exports = {
   getUsers,
   getAllCars,
   getMyListings,
   getMyFavourites,
   createNewListing,
+  addFavourite
 };

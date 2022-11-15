@@ -65,6 +65,20 @@ router.get("/myFavourites/:id", (req, res) => {
     });
 });
 
+// Add favourite
+router.post("/myFavourites", (req, res) => {
+  const user_id = req.cookies.user_id;
+
+  userQueries
+    .addFavourite({...req.body, buyer_id: user_id})
+    .then(cars => {
+      res.send(cars)
+    })
+    .catch((err) => {
+      res.status(500).json({ error: err.message })
+    })
+})
+
 // Remove favourites
 router.post("/myFavourites/:id/delete", (req, res) => {
   const id = req.params.id;
