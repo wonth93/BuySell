@@ -21,6 +21,7 @@ router.get("/", (req, res) => {
     });
 });
 
+// Get my listings
 router.get("/myListings", (req, res) => {
   const user_id = req.cookies.user_id;
   //console.log(user_id);
@@ -36,6 +37,7 @@ router.get("/myListings", (req, res) => {
     });
 });
 
+// Get my favourites
 router.get("/myFavourites", (req, res) => {
   const user_id = req.cookies.user_id;
 
@@ -49,33 +51,19 @@ router.get("/myFavourites", (req, res) => {
     });
 });
 
+// // Create listing
 // router.post("/createListing", (req, res) => {
-//   // const user_id = req.cookies[user_id];
-//   userQueries
-//     .createNewListing({...req.body, seller_id: user_id})
+//   const user_id = req.cookies.user_id;
+//   carQueries
+//     .createNewListing({ ...req.body, seller_id: user_id })
 //     .then((cars) => {
 //       res.send({ cars });
 //     })
 //     .catch((err) => {
 //       res.status(500).json({ error: err.message });
 //     });
-
 // });
 
-// router.get("/myListings", (req, res) => {
-//   // const { user_id } = req.cookies;
-//   const query = `SELECT * FROM cars JOIN users ON seller_id = users.id WHERE seller_id = 1`;
-//   // console.log(query);
-//   db.query(query)
-//     .then((data) => {
-//       const cars = data.rows;
-//       res.json({ cars });
-//       // res.json(car);
-//     })
-//     .catch((err) => {
-//       res.status(500).json({ error: err.message });
-//     });
-// });
 
 router.get("/login/:id", (req, res) => {
   res.cookie("user_id", req.params.id);

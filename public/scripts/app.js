@@ -165,7 +165,7 @@ $(document).ready(function () {
         </ul>
         <footer>
           <ul>
-            <li class="delete-listing">Delete this listing</li>
+            <form class="delete-listing" method="POST" action="/cars/${id}/delete"><button>Delete this listing</button></form>
             <li class="mark-sold">Mark As Sold</li>
           </ul>
         </footer>
