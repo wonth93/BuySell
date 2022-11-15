@@ -383,7 +383,7 @@ $(document).ready(function () {
             </footer>
         </div>
       </article>
-      <form class="send-message" method="POST" action="api/users/post-msg-to-seller/${seller_id}">
+      <form class="send-message" method="POST" action="api/users/post-msg-to-user/${seller_id}">
         <input name="name" type="text" class="feedback-input" placeholder="Name" />
         <input name="Subject" type="text" class="feedback-input" placeholder="Subject" />
         <textarea name="text" class="feedback-input" placeholder="Comment"></textarea>

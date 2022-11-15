@@ -8,6 +8,7 @@ const getUsers = () => {
 
 const getAllCars = () => {
   return db.query("SELECT * FROM cars;").then((data) => {
+    //For later - SELECT * FROM cars WHERE active = yes? So we can filter out sold cars
     return data.rows;
   });
 };
