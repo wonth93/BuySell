@@ -60,11 +60,11 @@ router.post("/:id/delete", (req, res) => {
   db.query(query)
     .then(() => {
       res.redirect("/");
+      //res.status(200).send();
     })
     .catch((err) => {
-      res.status(500).json({ error: err.message })
-    })
-
-})
+      res.status(500).json({ error: err.message });
+    });
+});
 
 module.exports = router;

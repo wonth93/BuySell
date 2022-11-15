@@ -70,14 +70,14 @@ router.post("/myFavourites", (req, res) => {
   const user_id = req.cookies.user_id;
 
   userQueries
-    .addFavourite({...req.body, buyer_id: user_id})
-    .then(cars => {
-      res.send(cars)
+    .addFavourite({ ...req.body, buyer_id: user_id })
+    .then((cars) => {
+      res.send(cars);
     })
     .catch((err) => {
-      res.status(500).json({ error: err.message })
-    })
-})
+      res.status(500).json({ error: err.message });
+    });
+});
 
 // Remove favourites
 router.post("/myFavourites/:id/delete", (req, res) => {
@@ -86,13 +86,12 @@ router.post("/myFavourites/:id/delete", (req, res) => {
   db.query(query)
     .then(() => {
       res.redirect("/");
+      //res.status(200);
     })
     .catch((err) => {
-      res.status(500).json({ error: err.message })
-    })
-
-})
-
+      res.status(500).json({ error: err.message });
+    });
+});
 
 router.get("/login/:id", (req, res) => {
   res.cookie("user_id", req.params.id);

@@ -74,8 +74,9 @@ $(document).ready(function () {
         </ul>
         <footer>
           <ul>
-            <li><a href="/cars/${id}">Learn More</a></li>
-            <form class="add-fav" method="POST" action="/api/users/myFavourites"><button>Favourite</button></form>
+            <li><button><a href="/cars/${id}">Learn More</a></button></li>
+            <li><button>Message Seller</button>
+            <li><form class="add-fav" method="POST" action="/api/users/myFavourites"><button>Favourite</button></form><li>
           </ul>
         </footer>
         </div>
@@ -186,18 +187,29 @@ $(document).ready(function () {
       }
     };
 
+    // //Delete a listing
+    // $("#cars-container").on("click", ".delete-listing", function (e) {
+    //   const id = $(this).closest("article").attr("id");
+    //   // const url = `api/users/myListings/${id}/delete`;
+    //   //alert(`Successfully deleted Car Listing  #${id}`);
+    //   //loadHomepage();
+    // });
+
     //Delete a listing
-    $("#cars-container").on("click", ".delete-listing", function (e) {
-      const id = $(this).closest("article").attr("id");
-      const url = `api/users/myListings/${id}/delete`;
-      alert(`send a post/delete request to ${url} then call loadListings()`);
-    });
+    // $(".delete-listing").on("submit", function (e) {
+    //   e.preventDefault();
+    //   const id = $(this).closest("article").attr("id");
+    //   alert(`Successfully deleted Car Listing  #${id}`);
+    //   loadListings();
+    //   //loadHomepage();
+    // });
 
     //Mark a listing as sold
     $("#cars-container").on("click", ".mark-sold", function (e) {
       const id = $(this).closest("article").attr("id");
       const url = `api/users/myListings/${id}`;
       alert(`send a post/update request to ${url} then call loadListings()`);
+      loadListings();
     });
   };
 
@@ -259,8 +271,9 @@ $(document).ready(function () {
         </ul>
         <footer>
           <ul>
-            <li><a href="/cars/${id}">Learn More</a></li>
-            <form class="remove-fav" method="POST" action="/api/users/myFavourites/${id}/delete"><button>Remove from favourites</button></form>
+            <li><button><a href="/cars/${id}">Learn More</a></button></li>
+            <li><button>Message Seller</button>
+            <li><form class="remove-fav" method="POST" action="/api/users/myFavourites/${id}/delete"><button>Remove from favourites</button></form><li>
           </ul>
         </footer>
         </div>
