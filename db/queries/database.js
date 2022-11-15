@@ -29,7 +29,7 @@ const getMyListings = (user_id) => {
 const getMyFavourites = (user_id) => {
   return db
     .query(
-      `SELECT cars.*, cars_favourites.id FROM cars_favourites INNER JOIN users ON users.id = buyer_id INNER JOIN cars ON cars.id = car_id WHERE buyer_id = $1`,
+      `SELECT cars.*, cars_favourites.id AS car_fav_id FROM cars_favourites INNER JOIN users ON users.id = buyer_id INNER JOIN cars ON cars.id = car_id WHERE buyer_id = $1`,
       [user_id]
     )
     .then((result) => {
@@ -73,18 +73,21 @@ const createNewListing = (cars) => {
 
 const addFavourite = (cars) => {
   return db
-    .query(`
+    .query(
+      `
     INSERT INTO cars_favourites (buyer_id, car_id)
     VALUES ($1, $2)
     RETURNING *;
-    `, [cars.buyer_id, cars.car_id])
+    `,
+      [cars.buyer_id, cars.car_id]
+    )
     .then((result) => {
       return result.rows[0];
     })
     .catch((error) => {
       console.log(error.message);
     });
-}
+};
 
 module.exports = {
   getUsers,
@@ -92,5 +95,5 @@ module.exports = {
   getMyListings,
   getMyFavourites,
   createNewListing,
-  addFavourite
+  addFavourite,
 };

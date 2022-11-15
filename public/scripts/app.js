@@ -75,7 +75,6 @@ $(document).ready(function () {
         <footer class="car-actions">
           <ul>
             <li><button class="learn-more">Learn More</button></li>
-            <li><button class="msg-seller">Message Seller</button>
             <li><form class="add-fav" method="POST" action="/api/users/myFavourites"><button>Favourite</button></form><li>
           </ul>
         </footer>
@@ -101,6 +100,13 @@ $(document).ready(function () {
       const id = $(this).closest("article").attr("id");
       const url = `api/users/myFavourites/${id}`;
       alert(`send a postrequest to ${url} then call loadFavs()`);
+    });
+
+    $("#cars-container").on("click", ".learn-more", function () {
+      //loadSingleCarPage();
+      const id = $(this).closest("article").attr("id");
+      //alert(`rendering message form about ${id} car`);
+      loadSingleCarPage(id);
     });
   };
 
@@ -276,8 +282,7 @@ $(document).ready(function () {
         </ul>
         <footer>
           <ul>
-            <li><button><a href="/cars/${id}">Learn More</a></button></li>
-            <li><button>Message Seller</button>
+            <li><button class="learn-more">Learn More</button></li>
             <li><form class="remove-fav" method="POST" action="/api/users/myFavourites/${id}/delete"><button>Remove from favourites</button></form><li>
           </ul>
         </footer>
@@ -303,13 +308,22 @@ $(document).ready(function () {
       //const url = `api/users/myFavourites/${id}/delete`;
       alert(`Deleted car #${id} from Favourites`);
     });
+
+    $("#cars-container").on("click", ".learn-more", function () {
+      //loadSingleCarPage();
+      const id = $(this).closest("article").attr("id");
+      //alert(`rendering message form about ${id} car`);
+      loadSingleCarPage(id);
+    });
   };
 
+  /////////Load the createListing form//////////////////////
   const loadCreateListing = function () {
     $main.empty();
     $main.append("<p>Create Listing Form Here</p>");
   };
 
+  /////////////Loading messages page/////////////////////////
   const loadMyMessages = function () {
     $main.empty();
     $main.append("<p>My messages</p>");
@@ -350,30 +364,39 @@ $(document).ready(function () {
         active,
       } = carObject;
 
-      const $singleCar =
-        $(`<section class="single-car-container" id=${seller_id}>
+      const $singleCar = $(`<section class="single-car-container" id=${id}>
       <article class="single-car">
           <div><img src=${thumbnail_photo_url} width="600"></img></div>
           <div class="single-car-details">
-            <h2>BMW M3</h2>
+            <h2>${title}</h2>
             <ul>
-              <li>Manufacturer</li>
-              <li>condition</li>
-              <li>price</li>
-              <li>mileage</li>
-              <li>Description</li>
+              <li>Manufacturer: ${manufacturer}</li>
+              <li>Condition: ${condition}</li>
+              <li>Price: $${price}</li>
+              <li>Mileage: ${mileage}</li>
+              <li>Description: ${description}</li>
             </ul>
             <footer>
               <ul>
-                <li><button>Message Seller</button></li>
                 <li><button>Favourite</button></li>
               </ul>
             </footer>
         </div>
       </article>
+      <form class="send-message" method="POST" action="api/users/post-msg-to-seller/${seller_id}">
+        <input name="name" type="text" class="feedback-input" placeholder="Name" />
+        <input name="Subject" type="text" class="feedback-input" placeholder="Subject" />
+        <textarea name="text" class="feedback-input" placeholder="Comment"></textarea>
+        <input type="submit" value="SUBMIT"/>
+    </form>
     </section>`);
 
       $main.append($singleCar);
+
+      ////////Send message functionality////////////
+      $(".send-message").on("click", function () {
+        alert(`message sent to seller: ${seller_id}`);
+      });
     };
   };
 
@@ -399,12 +422,12 @@ $(document).ready(function () {
   });
 
   /////////////Managing clicks on message seller button/////////
-  $("#cars-container").on("click", ".learn-more", function () {
-    //loadSingleCarPage();
-    const id = $(this).closest("article").attr("id");
-    //alert(`rendering message form about ${id} car`);
-    loadSingleCarPage(id);
-  });
+  // $("#cars-container").on("click", ".learn-more", function () {
+  //   //loadSingleCarPage();
+  //   const id = $(this).closest("article").attr("id");
+  //   //alert(`rendering message form about ${id} car`);
+  //   loadSingleCarPage(id);
+  // });
 
   // $("header").on("click", ".logout-button", () => {
   //   loadMyMessages();
