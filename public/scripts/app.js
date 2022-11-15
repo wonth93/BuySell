@@ -226,58 +226,82 @@ $(document).ready(function () {
     loadFavs();
 
     //create individual tweet
-    const createCarElement = (carData) => {
-      const {
-        id,
-        title,
-        manufacturer,
-        condition,
-        thumbnail_photo_url,
-        mileage,
-        price,
-        description,
-      } = carData;
-      // const timePassed = timeago.format(created_at);
+    // const createCarElement = (carData) => {
+    //   const {
+    //     id,
+    //     title,
+    //     manufacturer,
+    //     condition,
+    //     thumbnail_photo_url,
+    //     mileage,
+    //     price,
+    //     description,
+    //   } = carData;
+    //   // const timePassed = timeago.format(created_at);
 
-      // const escape = function (str) {
-      //   let div = document.createElement("div");
-      //   div.appendChild(document.createTextNode(str));
-      //   return div.innerHTML;
-      // };
+    //   // const escape = function (str) {
+    //   //   let div = document.createElement("div");
+    //   //   div.appendChild(document.createTextNode(str));
+    //   //   return div.innerHTML;
+    //   // };
 
-      const $car = $(`<article class="car" id=${id}>
-      <div><img src="${thumbnail_photo_url}" class="car-image"></img></div>
-      <div class="car-info">
-        <h3>${title}</h3>
-        <div class="car-details">
-        <ul>
-          <li>Manufacturer ${manufacturer}</li>
-          <li>Condition: ${condition}</li>
-          <li>Price: $${price}</li>
-          <li>Mileage: ${mileage} miles</li>
-          <li>Description: ${description}</li>
-        </ul>
-        <footer>
-          <ul>
-            <li><a href="/cars/${id}">Learn More</a></li>
-            <li class="remove-fav">Remove from favourites</li>
-          </ul>
-        </footer>
-        </div>
-    </div>
-    </article>`);
+    //   const $car = $(`<article class="car" id=${id}>
+    //   <div><img src="${thumbnail_photo_url}" class="car-image"></img></div>
+    //   <div class="car-info">
+    //     <h3>${title}</h3>
+    //     <div class="car-details">
+    //     <ul>
+    //       <li>Manufacturer ${manufacturer}</li>
+    //       <li>Condition: ${condition}</li>
+    //       <li>Price: $${price}</li>
+    //       <li>Mileage: ${mileage} miles</li>
+    //       <li>Description: ${description}</li>
+    //     </ul>
+    //     <footer>
+    //       <ul>
+    //         <li><a href="/cars/${id}">Learn More</a></li>
+    //         <form class="remove-fav" method="POST" action="/api/users/myFavourites/${i}/delete"><button>Remove from favourites</button></form>
+    //       </ul>
+    //     </footer>
+    //     </div>
+    // </div>
+    // </article>`);
 
-      return $car;
-    };
+    //   return $car;
+    // };
 
     //rendering all of the tweets after grabbing them via ajax into the tweet container
     const renderFavs = (cars) => {
       $("#cars-container").empty();
       console.log(cars);
-      for (let car of cars) {
-        const $car = createCarElement(car);
-        $("#cars-container").prepend($car);
+      for (let i = 0; i < cars.length; i++) {
+        const $car = `<article class="car" id=${cars[i].id}>
+        <div><img src="${cars[i].thumbnail_photo_url}" class="car-image"></img></div>
+        <div class="car-info">
+          <h3>${cars[i].title}</h3>
+          <div class="car-details">
+          <ul>
+            <li>Manufacturer ${cars[i].manufacturer}</li>
+            <li>Condition: ${cars[i].condition}</li>
+            <li>Price: $${cars[i].price}</li>
+            <li>Mileage: ${cars[i].mileage} miles</li>
+            <li>Description: ${cars[i].description}</li>
+          </ul>
+          <footer>
+            <ul>
+              <li><a href="/cars/${cars[i].id}">Learn More</a></li>
+              <form class="remove-fav" method="POST" action="/api/users/myFavourites/${i+1}/delete"><button>Remove from favourites</button></form>
+            </ul>
+          </footer>
+          </div>
+      </div>
+      </article>`;
+      $("#cars-container").prepend($car);
       }
+      // for (let car of cars) {
+      //   const $car = createCarElement(car);
+      //   $("#cars-container").prepend($car);
+      // }
     };
 
     $("#cars-container").on("click", ".remove-fav", function (e) {

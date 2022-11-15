@@ -51,6 +51,35 @@ router.get("/myFavourites", (req, res) => {
     });
 });
 
+router.get("/myFavourites/:id", (req, res) => {
+  const id = req.params.id;
+
+  const query = `SELECT cars.* FROM cars_favourites INNER JOIN users ON users.id = buyer_id INNER JOIN cars ON cars.id = car_id WHERE cars_favourites.id = ${id}`;
+  db.query(query)
+    .then((data) => {
+      const car = data.rows;
+      res.json(car[0]);
+    })
+    .catch((err) => {
+      res.status(500).json({ error: err.message });
+    });
+});
+
+// Remove favourites
+router.post("/myFavourites/:id/delete", (req, res) => {
+  const id = req.params.id;
+  const query = `DELETE FROM cars_favourites WHERE id = ${id}`;
+  db.query(query)
+    .then(() => {
+      res.redirect("/");
+    })
+    .catch((err) => {
+      res.status(500).json({ error: err.message })
+    })
+
+})
+
+
 // // Create listing
 // router.post("/createListing", (req, res) => {
 //   const user_id = req.cookies.user_id;
