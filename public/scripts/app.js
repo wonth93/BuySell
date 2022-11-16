@@ -373,7 +373,7 @@ $(document).ready(function () {
               <li><button>Favourite</button></li>
             </ul>
             <h3>Message the seller about this car</h3>
-            <form class="send-message" method="POST" action="api/users/post-msg-to-user/${seller_id}">
+            <form class="send-message" method="POST" action="api/users/myMessages/add">
         <textarea name="text" class="feedback-input" placeholder="Comment"></textarea>
         <input type="submit" value="SUBMIT"/>
     </form>
