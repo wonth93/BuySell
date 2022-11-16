@@ -86,7 +86,7 @@ router.post("/myFavourites/:id/add", (req, res) => {
 // Remove favourites
 router.post("/myFavourites/:id/delete", (req, res) => {
   const id = req.params.id;
-  const query = `DELETE FROM cars_favourites WHERE id = ${id}`; //`DELETE FROM cars_favourites JOIN cars ON car_id = cars.id WHERE id = ${id}`
+  const query = `DELETE FROM cars_favourites WHERE id = ${id}`;
   db.query(query)
     .then(() => {
       res.redirect("/");
@@ -107,6 +107,29 @@ router.get("/myMessages", (req, res) => {
     .then((messages) => {
       // console.log(cars);
       res.send({ messages });
+    })
+    .catch((err) => {
+      res.status(500).json({ error: err.message });
+    });
+});
+
+router.post("/myMessages/:receiver_id/:car_id/add", (req, res) => {
+  const car_id = req.params.car_id;
+  const receiver_id = req.params.receiver_id;
+  const user_id = req.cookies.user_id;
+  const message = req.body.text;
+
+  if (!message) {
+    res.status(400);
+    return;
+  }
+
+  const query = `INSERT INTO messages (sender_id, receiver_id, car_id, message, date_sent) VALUES (${user_id}, ${receiver_id}, ${car_id}, '${message}', CURRENT_TIMESTAMP)`;
+  db.query(query)
+    .then(() => {
+      console.log(req.body);
+      res.redirect("/");
+      //res.status(200);
     })
     .catch((err) => {
       res.status(500).json({ error: err.message });

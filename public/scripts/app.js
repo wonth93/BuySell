@@ -430,7 +430,7 @@ $(document).ready(function () {
       <form
         class="send-message"
         method="POST"
-        action="api/users/post-msg-to-user/${sender_id}"
+        action="api/users/myMessages/${sender_id}/${car_id}/add"
       >
         <textarea
           name="text"
