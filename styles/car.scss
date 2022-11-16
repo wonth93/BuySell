@@ -9,6 +9,27 @@
   animation: fade-in-down 2s ease 1;
 }
 
+.active-true li.sold {
+  display: none;
+}
+
+.active-false li.sold {
+  display: show;
+}
+
+.active-false button.learn-more {
+  //position: fixed; /* Sit on top of the page content */
+  display: none; /* Hidden by default */
+  // width: 100%; /* Full width (cover the whole page) */
+  // height: 100%; /* Full height (cover the whole page) */
+  // top: 0;
+  // left: 0;
+  // right: 0;
+  // bottom: 0;
+  //z-index: 3;
+  //background-color: rgba(182, 151, 151, 0.5); /* Black background with opacity */
+}
+
 .car:hover {
   box-shadow: 10px 10px 5px #a0a1a9;
 }
