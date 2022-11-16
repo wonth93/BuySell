@@ -24,6 +24,23 @@ router.get("/", (req, res) => {
     });
 });
 
+router.get("/price", (req, res) => {
+  // const query = `SELECT * FROM cars`;
+  //const price = req.body.text;
+  //console.log(req.body.text);
+  const filterOptions = req.query;
+  carQueries
+    .getCarsByPrice(filterOptions)
+    .then((cars) => {
+      // const cars = data.rows;
+      // console.log(cars);
+      res.send({ cars });
+    })
+    .catch((err) => {
+      res.status(500).json({ error: err.message });
+    });
+});
+
 router.get("/:id", (req, res) => {
   const { id } = req.params;
   const query = `SELECT * FROM cars WHERE id = ${id}`;

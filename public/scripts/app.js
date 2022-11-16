@@ -20,16 +20,61 @@ $(document).ready(function () {
   const loadHomepage = function () {
     $main.empty();
     $main.append(` <h2 class="section-title">All Cars</h2>
+    <h4>Filter by price</h4>
+    <form
+      action="/cars/price"
+      method="get"
+      id="filter-car-form"
+      class="filter-car-form"
+    >
+      <div class="filter-car-form__field-wrapper">
+        <!-- <label for="filter-car-form__minimum-price-per-night"
+          >Minimum Cost</label
+        >
+        <input
+          type="number"
+          name="minimum_price_per_night"
+          placeholder="Minimum Cost"
+          id="filter-car-form__minimum-price"
+        /> -->
+        <label for="filter-car-form__maximum-price-per-night"
+          >Maximum Price</label
+        >
+        <input
+          type="number"
+          name="maximum_price"
+          placeholder="Maximum Price"
+          id="filter-car-form__maximum-price"
+        />
+      </div>
+
+      <div class="filter-car-form__field-wrapper">
+        <button class="submit-filter" type="submit">Search</button>
+        <span class="clear-filter">Clear Filter</span>
+        <!-- <a id="filter-car-form__cancel" href="#">Cancel</a> -->
+      </div>
+    </form>
+    <section id="error-message"></section>
     <section id="cars-container"></section>`);
 
-    const loadCars = () => {
+    const loadCars = (params) => {
+      let url = "/cars";
+      if (params) {
+        url = `/cars/price?${params}`;
+      }
+      //alert(url);
+
       $.ajax({
-        url: "/cars",
+        url: url,
         method: "GET",
         dataType: "json",
         success: (carsObject) => {
           //console.log(typeof carsObject);
           const { cars } = carsObject;
+          if (cars.length === 0) {
+            //$("#error-message").empty();
+            $("#error-message").append(`<h3>Sorry, no cars available</h3>`);
+          }
           renderCars(cars);
         },
         error: (err) => {
@@ -104,9 +149,26 @@ $(document).ready(function () {
 
     $("#cars-container").on("click", ".learn-more", function () {
       //loadSingleCarPage();
+      $("#error-message").empty();
       const id = $(this).closest("article").attr("id");
       //alert(`rendering message form about ${id} car`);
       loadSingleCarPage(id);
+    });
+
+    $("#filter-car-form").on("click", ".clear-filter", function (event) {
+      //event.preventDefault();
+      //const data = $(this).serialize();
+      //alert(data);
+      $("#error-message").empty();
+      loadCars();
+    });
+
+    $("#filter-car-form").on("submit", function (event) {
+      event.preventDefault();
+      //$("#error-message").empty();
+      const data = $(this).serialize();
+      //alert(data);
+      loadCars(data);
     });
   };
 
@@ -416,8 +478,16 @@ $(document).ready(function () {
     loadMessages();
 
     const createMessageElement = (singleMessage) => {
-      const { id, sender_id, receiver_id, car_id, date_sent, message, senderid, carid } =
-        singleMessage;
+      const {
+        id,
+        sender_id,
+        receiver_id,
+        car_id,
+        date_sent,
+        message,
+        senderid,
+        carid,
+      } = singleMessage;
 
       const $message = $(`<article class="message">
     <div class="message-details">

@@ -13,6 +13,18 @@ const getAllCars = () => {
   });
 };
 
+const getCarsByPrice = (filterOptions) => {
+  // const queryParams = [];
+  const numPrice = parseInt(filterOptions.maximum_price);
+  //const query = `SELECT * FROM cars WHERE price < $1`;
+  return db
+    .query(`SELECT * FROM cars WHERE price < $1`, [numPrice])
+    .then((data) => {
+      //For later - SELECT * FROM cars WHERE active = yes? So we can filter out sold cars
+      return data.rows;
+    });
+};
+
 const getMyListings = (user_id) => {
   return db
     .query(
@@ -108,6 +120,7 @@ const getMyMessages = (user_id) => {
 module.exports = {
   getUsers,
   getAllCars,
+  getCarsByPrice,
   getMyListings,
   getMyFavourites,
   createNewListing,
