@@ -118,6 +118,7 @@ router.post("/myMessages/:receiver_id/:car_id/add", (req, res) => {
   const receiver_id = req.params.receiver_id;
   const user_id = req.cookies.user_id;
   const message = req.body.text;
+  console.log(req.params)
 
   if (!message) {
     return res.status(400);

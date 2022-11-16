@@ -373,7 +373,7 @@ $(document).ready(function () {
               <li><button>Favourite</button></li>
             </ul>
             <h3>Message the seller about this car</h3>
-            <form class="send-message" method="POST" action="api/users/myMessages/add">
+            <form class="send-message" method="POST" action="api/users/myMessages/${seller_id}/${id}/add">
         <textarea name="text" class="feedback-input" placeholder="Comment"></textarea>
         <input type="submit" value="SUBMIT"/>
     </form>
@@ -430,7 +430,7 @@ $(document).ready(function () {
       <form
         class="send-message"
         method="POST"
-        action="api/users/myMessages/${sender_id}/${car_id}/add"
+        action="api/users/myMessages/${receiver_id}/${car_id}/add"
       >
         <textarea
           name="text"
