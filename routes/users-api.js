@@ -66,13 +66,17 @@ router.get("/myFavourites/:id", (req, res) => {
 });
 
 // Add favourite
-router.post("/myFavourites", (req, res) => {
+router.post("/myFavourites/:id/add", (req, res) => {
+  const id = req.params.id;
   const user_id = req.cookies.user_id;
 
-  userQueries
-    .addFavourite({ ...req.body, buyer_id: user_id })
+  const query = `INSERT INTO cars_favourites (buyer_id, car_id) VALUES (${user_id}, ${id})`;
+  db.query(query)
+    // userQueries
+    //   .addFavourite({ ...req.body, buyer_id: user_id })
     .then((cars) => {
-      res.send(cars);
+      // res.send(cars);
+      res.redirect("/");
     })
     .catch((err) => {
       res.status(500).json({ error: err.message });

@@ -75,7 +75,7 @@ $(document).ready(function () {
         <footer class="car-actions">
           <ul>
             <li><button class="learn-more">Learn More</button></li>
-            <li><form class="add-fav" method="POST" action="/api/users/myFavourites"><button>Favourite</button></form><li>
+            <li><form class="add-fav" method="POST" action="/api/users/myFavourites/${id}/add"><button>Favourite</button></form><li>
           </ul>
         </footer>
         </div>
