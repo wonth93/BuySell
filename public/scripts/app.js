@@ -416,12 +416,12 @@ $(document).ready(function () {
     loadMessages();
 
     const createMessageElement = (singleMessage) => {
-      const { id, sender_id, receiver_id, car_id, date_sent, message } =
+      const { id, sender_id, receiver_id, car_id, date_sent, message, senderid, carid } =
         singleMessage;
 
       const $message = $(`<article class="message">
     <div class="message-details">
-      <h3>Message From User ${sender_id} about Car ${car_id}</h3>
+      <h3>Message From ${senderid} about ${carid}</h3>
       <p>Recieved: ${date_sent}</p>
       <p>${message}</p>
     </div>

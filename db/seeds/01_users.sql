@@ -5,6 +5,6 @@
 DELETE FROM users;
 
 INSERT INTO users (name, email, password)
-VALUES ('Admin User', 'admin@gmail.com', 'password'),
-('Non Admin', 'user@gmail.com', 'password');
+VALUES ('User 1', 'admin@gmail.com', 'password'),
+('User 2', 'user@gmail.com', 'password');
 

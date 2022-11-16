@@ -23,9 +23,9 @@ VALUES (1, 3, '2018-02-17T08:06:00.000Z'),
 
 
 INSERT INTO messages (sender_id, receiver_id, car_id, date_sent, message)
-VALUES (2, 1, 1, CURRENT_TIMESTAMP, 'Hi there!'),
-(1, 2, 1, CURRENT_TIMESTAMP, 'How are you doing'),
-(2, 1, 1, CURRENT_TIMESTAMP, 'I am doing well, thank you.'),
-(1, 2, 1, CURRENT_TIMESTAMP, 'That is awesome. Lorem ipsum lorem ipsum lorem ipsum');
+VALUES (2, 1, 1, CURRENT_TIMESTAMP, 'message from user 2'),
+(1, 2, 1, CURRENT_TIMESTAMP, 'message from user 1'),
+(2, 1, 1, CURRENT_TIMESTAMP, 'message from user 2'),
+(1, 2, 1, CURRENT_TIMESTAMP, 'message from user 1');
 
 

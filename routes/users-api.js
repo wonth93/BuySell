@@ -120,8 +120,7 @@ router.post("/myMessages/:receiver_id/:car_id/add", (req, res) => {
   const message = req.body.text;
 
   if (!message) {
-    res.status(400);
-    return;
+    return res.status(400);
   }
 
   const query = `INSERT INTO messages (sender_id, receiver_id, car_id, message, date_sent) VALUES (${user_id}, ${receiver_id}, ${car_id}, '${message}', CURRENT_TIMESTAMP)`;
