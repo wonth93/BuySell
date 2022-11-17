@@ -23,29 +23,22 @@ $(document).ready(function () {
     <h4>Filter by price</h4>
     <form
       action="/cars/price"
-      method="get"
+      method="GET"
       id="filter-car-form"
       class="filter-car-form"
     >
       <div class="filter-car-form__field-wrapper">
-        <!-- <label for="filter-car-form__minimum-price-per-night"
-          >Minimum Cost</label
-        >
-        <input
-          type="number"
-          name="minimum_price_per_night"
-          placeholder="Minimum Cost"
-          id="filter-car-form__minimum-price"
-        /> -->
-        <label for="filter-car-form__maximum-price-per-night"
-          >Maximum Price</label
-        >
+
+        <label for="filter-car-form__minimum-price-per-night">Minimum Cost</label>
+        <input type="number" name="minimum_price" placeholder="Minimum Cost" id="filter-car-form__minimum-price">
+
+        <label for="filter-car-form__maximum-price-per-night">Maximum Price</label>
         <input
           type="number"
           name="maximum_price"
           placeholder="Maximum Price"
           id="filter-car-form__maximum-price"
-        />
+        >
       </div>
 
       <div class="filter-car-form__field-wrapper">
