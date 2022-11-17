@@ -272,6 +272,12 @@ $(document).ready(function () {
       alert(`Deleted car #${id} from your listings`);
     });
 
+    $("#cars-container").on("click", ".mark-sold", function (e) {
+      const id = $(this).closest("article").attr("id");
+      //const url = `api/users/myFavourites/${id}/delete`;
+      alert(`Marked car #${id} as sold`);
+    });
+
     //Mark a listing as sold
 
     // $("#cars-container").on("click", ".mark-sold", function (e) {
@@ -479,7 +485,7 @@ $(document).ready(function () {
 
       const $singleCar = $(`<section class="single-car-container" id=${id}>
       <article class="single-car">
-          <div><img src=${thumbnail_photo_url} width="600"></img></div>
+          <div><img src=${thumbnail_photo_url}></img></div>
           <div class="single-car-info">
             <h2>${title}</h2>
           <div class="single-car-details">

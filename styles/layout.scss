@@ -50,9 +50,14 @@ button {
   animation: fade-in-down 2s ease 1;
 }
 
+
+
 #filter-car-form button {
-  padding: 2px;
-}
+  padding: 1rem;
+
+// #filter-car-form input {
+//   height: 2rem;
+// }
 
 .clear-filter:hover {
   //padding: 2rem 0px 2rem 0px;
@@ -71,7 +76,9 @@ button {
   }
 }
 
-@media screen and (max-width: 789px) {
+@media screen and (max-width: 992px) {
+
+  //page header
   #page-header .header-links {
     flex-direction: column;
     justify-content: flex-start;
@@ -86,6 +93,7 @@ button {
     padding-top: 2rem;
   }
 
+  //car element
   .car {
     flex-direction: column;
     gap: 1rem;
@@ -103,7 +111,28 @@ button {
     width: 100%
   }
 
+  //message element
   .message {
     flex-direction: column;
   }
+
+  //single car page
+  .single-car {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .single-car .single-car-info {
+    padding: 2rem;
+    width: 100%;
+    margin: auto;
+  }
+
+  // .single-car .single-car-details {
+  //   width: 100%;
+  // }
+
+  // .single-car img {
+  //   width: 100%;
+  // }
 }
