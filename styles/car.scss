@@ -57,6 +57,7 @@ active-false button.add-fav-button, active-false form.add-fav {
   width: 100%;
   padding-top: 2rem;
   padding-right: 1rem;
+  padding-bottom: 1rem;
 }
 
 .car-info h3 {
@@ -67,8 +68,9 @@ active-false button.add-fav-button, active-false form.add-fav {
 .car-details {
   width: 90%;
   display: flex;
+  gap: 1rem;
   justify-content: space-between;
-  align-items: flex-end;
+  align-items: flex-start;
 }
 
 .car-details ul {
@@ -88,7 +90,7 @@ active-false button.add-fav-button, active-false form.add-fav {
 
 //Car actions
 .car-actions ul li {
-  margin-top: .6rem;
+  margin-bottom: .6rem;
 }
 // .car-actions ul {
 //   display: flex;

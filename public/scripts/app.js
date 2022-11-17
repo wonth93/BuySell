@@ -569,7 +569,7 @@ $(document).ready(function () {
           class="feedback-input"
           placeholder="Comment"
         ></textarea>
-        <input type="submit" value="SUBMIT" />
+        <button type="submit">Send Message</button>
       </form>
     </div>
   </article>`);
@@ -578,7 +578,7 @@ $(document).ready(function () {
     };
 
     const renderMessages = (messages) => {
-      $("#messages_container").empty();
+      $("#messages-container").empty();
       for (let message of messages) {
         const $message = createMessageElement(message);
         $("#messages-container").prepend($message);
