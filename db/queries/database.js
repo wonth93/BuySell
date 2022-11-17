@@ -17,7 +17,10 @@ const getCarsByPrice = (maximumPrice, minimumPrice) => {
   // const numPrice = parseInt(filterOptions.maximum_price);
   //const query = `SELECT * FROM cars WHERE price < $1`;
   return db
-    .query(`SELECT * FROM cars WHERE price <= $1 AND price >= $2`, [maximumPrice, minimumPrice])
+    .query(`SELECT * FROM cars WHERE price <= $1 AND price >= $2`, [
+      maximumPrice,
+      minimumPrice,
+    ])
     .then((data) => {
       //For later - SELECT * FROM cars WHERE active = yes? So we can filter out sold cars
       return data.rows;

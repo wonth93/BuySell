@@ -15,6 +15,8 @@
 
 .active-false li.sold {
   display: show;
+  font-size: 2rem;
+  color:rgb(188, 24, 24)
 }
 
 .active-false button.learn-more {
@@ -29,6 +31,15 @@
   //z-index: 3;
   //background-color: rgba(182, 151, 151, 0.5); /* Black background with opacity */
 }
+
+.active-false button.mark-sold-button, active-false form.mark-sold, active-false form.add-fav, active-false button.add-fav-button {
+  display: none;
+}
+
+
+// active-false form.mark-sold {
+//   display: none;
+// }
 
 .car:hover {
   box-shadow: 10px 10px 5px #a0a1a9;
@@ -66,4 +77,9 @@
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+//Car actions
+.car-actions ul li {
+  margin-bottom: .5rem;
 }

@@ -22,13 +22,47 @@ html {
   font-size: 2rem;
   margin-bottom: 1rem;
 }
+// #cars-container {
+//   max-width: 80%;
+//   margin: auto;
+// }
+button {
+  font-family: 'Blinker', sans-serif;
+  padding: 8px;
+}
+
+//Filter car form
+
+#filter-car-form {
+  margin-bottom: 2rem;
+  display: flex;
+  gap: .5rem;
+  align-items: flex-end;
+  animation: fade-in-down 2s ease 1;
+  //justify-content: space-between;
+}
+
+#error-message h3 {
+  animation: fade-in-down 2s ease 1;
+}
+
+#filter-car-form button {
+  padding: 2px;
+}
 
 .clear-filter:hover {
   //padding: 2rem 0px 2rem 0px;
   color: rgb(117, 112, 147);
   // text-decoration: underline;
 }
-// #cars-container {
-//   max-width: 80%;
-//   margin: auto;
-// }
+
+@keyframes fade-in-down {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

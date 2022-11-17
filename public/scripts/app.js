@@ -115,7 +115,7 @@ $(document).ready(function () {
           <ul>
             <li class="sold">SOLD</li>
             <li><button class="learn-more">Learn More</button></li>
-            <li><form class="add-fav" method="POST" action="/api/users/myFavourites/${id}/add"><button>Favourite</button></form><li>
+            <li><form class="add-fav" method="POST" action="/api/users/myFavourites/${id}/add"><button class="add-fav-button">Favourite</button></form><li>
           </ul>
         </footer>
         </div>
@@ -205,6 +205,7 @@ $(document).ready(function () {
         mileage,
         price,
         description,
+        active,
       } = carData;
       // const timePassed = timeago.format(created_at);
 
@@ -214,7 +215,7 @@ $(document).ready(function () {
       //   return div.innerHTML;
       // };
 
-      const $car = $(`<article class="car" id=${id}>
+      const $car = $(`<article class="car active-${active}" id=${id}>
       <div><img src="${thumbnail_photo_url}" class="car-image" ></img></div>
       <div class="car-info">
         <h3>${title}</h3>
@@ -226,10 +227,11 @@ $(document).ready(function () {
           <li>Mileage: ${mileage} miles</li>
           <li>Description: ${description}</li>
         </ul>
-        <footer>
+        <footer class="car-actions">
           <ul>
-            <form class="delete-listing" method="POST" action="/cars/${id}/delete"><button>Delete this listing</button></form>
-            <form class="mark-sold" method="POST" action="/cars/${id}/sold"><button>Mark As Sold</button></form>
+          <li class="sold">SOLD</li>
+          <li><form class="delete-listing" method="POST" action="/cars/${id}/delete"><button class="delete-listing-button">Delete this listing</button></form></li>
+          <li><form class="mark-sold" method="POST" action="/cars/${id}/sold"><button class="mark-sold-button">Mark As Sold</button></form></li>
           </ul>
         </footer>
         </div>
@@ -318,6 +320,7 @@ $(document).ready(function () {
         mileage,
         price,
         description,
+        active,
       } = carData;
       // const timePassed = timeago.format(created_at);
 
@@ -327,7 +330,7 @@ $(document).ready(function () {
       //   return div.innerHTML;
       // };
 
-      const $car = $(`<article class="car" id=${id}>
+      const $car = $(`<article class="car active-${active}"id=${id}>
       <div><img src="${thumbnail_photo_url}" class="car-image"></img></div>
       <div class="car-info">
         <h3>${title}</h3>
@@ -341,6 +344,7 @@ $(document).ready(function () {
         </ul>
         <footer>
           <ul>
+          <li class="sold">SOLD</li>
             <li><button class="learn-more">Learn More</button></li>
             <li><form class="remove-fav" method="POST" action="/api/users/myFavourites/${car_fav_id}/delete"><button type="submit">Remove from favourites</button></form><li>
           </ul>
@@ -435,7 +439,7 @@ $(document).ready(function () {
       </div>
 
     </form>
-    `)
+    `);
 
     $("#new-car-container").append($createListingForm);
   };

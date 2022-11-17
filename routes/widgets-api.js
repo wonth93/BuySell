@@ -26,12 +26,12 @@ router.get("/", (req, res) => {
 
 router.get("/price", (req, res) => {
   // const query = `SELECT * FROM cars`;
-  const minimunCost = parseInt(req.query.minimum_price);
-  const maximunPrice = parseInt(req.query.maximum_price);
+  const minimumPrice = parseInt(req.query.minimum_price) || 0;
+  const maximumPrice = parseInt(req.query.maximum_price);
 
   // const filterOptions = req.query;
   carQueries
-    .getCarsByPrice(maximunPrice, minimunCost)
+    .getCarsByPrice(maximumPrice, minimumPrice)
     .then((cars) => {
       // const cars = data.rows;
       // console.log(cars);
@@ -61,7 +61,7 @@ router.get("/:id", (req, res) => {
 // Mark sold
 router.post("/:id/sold", (req, res) => {
   const id = req.params.id;
-  console.log(id)
+  console.log(id);
   const query = `UPDATE cars SET active = false WHERE cars.id = ${id}`;
   db.query(query)
     .then((cars) => {
