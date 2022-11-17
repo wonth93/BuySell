@@ -32,7 +32,7 @@ CREATE TABLE cars (
   -- province VARCHAR(255) NOT NULL,
   -- post_code VARCHAR(255) NOT NULL,
 
-  active BOOLEAN NOT NULL DEFAULT TRUE
+  active BOOLEAN DEFAULT TRUE
 );
 
 CREATE TABLE cars_favourites (

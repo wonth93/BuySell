@@ -57,18 +57,49 @@ router.get("/:id", (req, res) => {
     });
 });
 
-// // Create listing
-// router.post("/createListing", (req, res) => {
-//   const user_id = req.cookies.user_id;
-//   carQueries
-//     .createNewListing({ ...req.body, seller_id: user_id })
-//     .then((cars) => {
-//       res.send({ cars });
-//     })
-//     .catch((err) => {
-//       res.status(500).json({ error: err.message });
-//     });
-// });
+// Create listing
+router.post("/add", (req, res) => {
+  const user_id = req.cookies.user_id;
+
+  carQueries
+    .createNewListing({ ...req.body, seller_id: user_id })
+    .then((cars) => {
+      res.redirect("/");
+    })
+    .catch((err) => {
+      res.status(500).json({ error: err.message });
+    });
+});
+
+/*`
+INSERT INTO cars (seller_id, title, manufacturer, condition, description, thumbnail_photo_url, cover_photo_url, price, mileage, year, date_posted, active)
+VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)
+RETURNING *;
+`,
+  [
+    cars.seller_id,
+    cars.title,
+    cars.manufacturer,
+    cars.condition,
+    cars.description,
+    cars.thumbnail_photo_url,
+    cars.cover_photo_url,
+    cars.price,
+    cars.mileage,
+    cars.year,
+    cars.date_posted,
+    cars.active,
+  ] */
+
+
+
+
+
+
+
+
+
+
 
 // Delete listing
 router.post("/:id/delete", (req, res) => {
