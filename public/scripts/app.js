@@ -492,7 +492,7 @@ $(document).ready(function () {
               <li>Price: $${price}</li>
               <li>Mileage: ${mileage}</li>
               <li>Description: ${description}</li>
-              <li><button>Favourite</button></li>
+              <li><form class="add-fav" method="POST" action="/api/users/myFavourites/${id}/add"><button>Favourite</button></form></li>
             </ul>
             <h3>Message the seller about this car</h3>
             <form class="send-message" method="POST" action="api/users/myMessages/${seller_id}/${id}/add">

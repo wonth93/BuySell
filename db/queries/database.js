@@ -57,8 +57,8 @@ const createNewListing = (cars) => {
   return db
     .query(
       `
-    INSERT INTO cars (seller_id, title, manufacturer, condition, description, thumbnail_photo_url, cover_photo_url, price, mileage, year, date_posted, active)
-    VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)
+    INSERT INTO cars (seller_id, title, manufacturer, condition, description, thumbnail_photo_url, cover_photo_url, price, mileage, year)
+    VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
     RETURNING *;
     `,
       [
@@ -72,8 +72,6 @@ const createNewListing = (cars) => {
         cars.price,
         cars.mileage,
         cars.year,
-        cars.date_posted,
-        cars.active,
       ]
     )
     .then((result) => {

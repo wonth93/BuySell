@@ -65,6 +65,7 @@ router.post("/add", (req, res) => {
     .createNewListing({ ...req.body, seller_id: user_id })
     .then((cars) => {
       res.redirect("/");
+      // res.send({ cars });
     })
     .catch((err) => {
       res.status(500).json({ error: err.message });
