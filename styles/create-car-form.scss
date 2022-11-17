@@ -1,0 +1,39 @@
+
+
+#new-car-form {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  // margin: auto;
+  animation: fade-in-down 2s ease 1;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+#new-car-form input, textarea {
+  display: block;
+  //margin: 5px 5px;
+  width: 100%;
+  margin-top: .5rem;
+  height: 2rem;
+}
+
+#new-car-form textarea {
+  height: 5rem;
+}
+
+#new-car-form label {
+  font-size: large;
+}
+
+@keyframes fade-in-down {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+

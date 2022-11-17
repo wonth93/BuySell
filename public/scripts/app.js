@@ -137,8 +137,7 @@ $(document).ready(function () {
     //Adding a car to favourites
     $("#cars-container").on("click", ".add-fav", function (e) {
       const id = $(this).closest("article").attr("id");
-      const url = `api/users/myFavourites/${id}`;
-      alert(`send a postrequest to ${url} then call loadFavs()`);
+      alert(`Added car #${id} to your favourites`);
     });
 
     $("#cars-container").on("click", ".learn-more", function () {
@@ -382,7 +381,7 @@ $(document).ready(function () {
   /////////Load the createListing form//////////////////////
   const loadCreateListing = function () {
     $main.empty();
-    $main.append(`<p>Create Listing Form Here</p>
+    $main.append(`<h3 class="section-title">Sell your car</h3>
     <section id="new-car-container"></section>`);
 
     const $createListingForm = $(`
