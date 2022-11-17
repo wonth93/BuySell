@@ -16,6 +16,7 @@
 .active-false li.sold {
   display: show;
   font-size: 2rem;
+  font-weight: 500;
   color:rgb(188, 24, 24)
 }
 
@@ -32,10 +33,14 @@
   //background-color: rgba(182, 151, 151, 0.5); /* Black background with opacity */
 }
 
-.active-false button.mark-sold-button, active-false form.mark-sold, active-false form.add-fav, active-false button.add-fav-button {
+.active-false button.mark-sold-button, active-false form.mark-sold {
   display: none;
 }
 
+
+active-false button.add-fav-button, active-false form.add-fav {
+  display: none;
+}
 
 // active-false form.mark-sold {
 //   display: none;
@@ -50,10 +55,12 @@
 }
 .car-info {
   width: 100%;
+  padding-top: 2rem;
+  padding-right: 1rem;
 }
 
 .car-info h3 {
-  margin: 1.5em 0px 1.5em 0px;
+  margin-bottom: 1.5em;
 
 }
 
@@ -81,5 +88,11 @@
 
 //Car actions
 .car-actions ul li {
-  margin-bottom: .5rem;
+  margin-top: .6rem;
 }
+// .car-actions ul {
+//   display: flex;
+//   flex-direction: column;
+//   gap: .5rem;
+//   justify-content: flex-end;
+// }

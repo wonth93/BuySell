@@ -20,7 +20,7 @@ $(document).ready(function () {
   const loadHomepage = function () {
     $main.empty();
     $main.append(` <h2 class="section-title">All Cars</h2>
-    <h4>Filter by price</h4>
+    <h4 class="filter-title">Filter by price</h4>
     <form
       action="/cars/price"
       method="GET"
@@ -109,7 +109,6 @@ $(document).ready(function () {
           <li>Condition: ${condition}</li>
           <li>Price: $${price}</li>
           <li>Mileage: ${mileage} miles</li>
-          <li>Description: ${description}</li>
         </ul>
         <footer class="car-actions">
           <ul>
@@ -160,6 +159,7 @@ $(document).ready(function () {
 
     $("#filter-car-form").on("submit", function (event) {
       event.preventDefault();
+      $("#error-message").empty();
       //$("#error-message").empty();
       const data = $(this).serialize();
       //alert(data);
@@ -340,9 +340,8 @@ $(document).ready(function () {
           <li>Condition: ${condition}</li>
           <li>Price: $${price}</li>
           <li>Mileage: ${mileage} miles</li>
-          <li>Description: ${description}</li>
         </ul>
-        <footer>
+        <footer class="car-actions">
           <ul>
           <li class="sold">SOLD</li>
             <li><button class="learn-more">Learn More</button></li>
@@ -482,30 +481,35 @@ $(document).ready(function () {
       const $singleCar = $(`<section class="single-car-container" id=${id}>
       <article class="single-car">
           <div><img src=${thumbnail_photo_url} width="600"></img></div>
-          <div class="single-car-details">
+          <div class="single-car-info">
             <h2>${title}</h2>
+          <div class="single-car-details">
             <ul>
               <li>Manufacturer: ${manufacturer}</li>
               <li>Condition: ${condition}</li>
               <li>Price: $${price}</li>
               <li>Mileage: ${mileage}</li>
               <li>Description: ${description}</li>
-              <li><form class="add-fav" method="POST" action="/api/users/myFavourites/${id}/add"><button>Favourite</button></form></li>
             </ul>
+            <form class="add-fav" method="POST" action="/api/users/myFavourites/${id}/add"><button>Favourite</button></form>
+          </div>
+          <footer class="single-car-message">
+          <hr />
             <h3>Message the seller about this car</h3>
             <form class="send-message" method="POST" action="api/users/myMessages/${seller_id}/${id}/add">
-        <textarea name="text" class="feedback-input" placeholder="Comment"></textarea>
-        <input type="submit" value="SUBMIT"/>
-    </form>
-        </div>
+              <textarea name="text" class="feedback-input" placeholder="Message here"></textarea>
+              <button type="submit">Send Message</button>
+              </form>
+            </footer>
+          </div>
       </article>
     </section>`);
 
       $main.append($singleCar);
 
       ////////Send message functionality////////////
-      $(".send-message").on("click", function () {
-        alert(`message sent to seller: ${seller_id}`);
+      $(".send-message").on("submit", function () {
+        alert(`Message sent to seller #${seller_id}`);
       });
     };
   };
