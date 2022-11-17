@@ -58,6 +58,21 @@ router.get("/:id", (req, res) => {
     });
 });
 
+// Mark sold
+router.post("/:id/sold", (req, res) => {
+  const id = req.params.id;
+  console.log(id)
+  const query = `UPDATE cars SET active = false WHERE cars.id = ${id}`;
+  db.query(query)
+    .then((cars) => {
+      // res.send({ cars });
+      res.redirect("/");
+    })
+    .catch((err) => {
+      res.status(500).json({ error: err.message });
+    });
+});
+
 // Create listing
 router.post("/add", (req, res) => {
   const user_id = req.cookies.user_id;

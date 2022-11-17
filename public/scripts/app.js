@@ -182,7 +182,6 @@ $(document).ready(function () {
         method: "GET",
         dataType: "json",
         success: (carsObject) => {
-          //console.log(typeof carsObject);
           const { cars } = carsObject;
           renderListings(cars);
         },
@@ -230,7 +229,7 @@ $(document).ready(function () {
         <footer>
           <ul>
             <form class="delete-listing" method="POST" action="/cars/${id}/delete"><button>Delete this listing</button></form>
-            <li class="mark-sold">Mark As Sold</li>
+            <form class="mark-sold" method="POST" action="/cars/${id}/sold"><button>Mark As Sold</button></form>
           </ul>
         </footer>
         </div>
@@ -273,12 +272,14 @@ $(document).ready(function () {
     });
 
     //Mark a listing as sold
-    $("#cars-container").on("click", ".mark-sold", function (e) {
-      const id = $(this).closest("article").attr("id");
-      const url = `api/users/myListings/${id}`;
-      alert(`send a post/update request to ${url} then call loadListings()`);
-      loadListings();
-    });
+
+    // $("#cars-container").on("click", ".mark-sold", function (e) {
+    //   const id = $(this).closest("article").attr("id");
+    //   const url = `api/users/myListings/${id}`;
+    //   alert(`send a post/update request to ${url} then call loadListings()`);
+    //   loadSoldListing();
+    //   // loadListings();
+    // });
   };
 
   /////////////////// Loading the my favourites//////////////

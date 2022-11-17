@@ -7,7 +7,7 @@ const getUsers = () => {
 };
 
 const getAllCars = () => {
-  return db.query("SELECT * FROM cars;").then((data) => {
+  return db.query("SELECT * FROM cars ORDER BY date_posted;").then((data) => {
     //For later - SELECT * FROM cars WHERE active = yes? So we can filter out sold cars
     return data.rows;
   });
@@ -27,7 +27,7 @@ const getCarsByPrice = (maximumPrice, minimumPrice) => {
 const getMyListings = (user_id) => {
   return db
     .query(
-      `SELECT cars.* FROM cars INNER JOIN users ON users.id = seller_id WHERE seller_id = $1`,
+      `SELECT cars.* FROM cars INNER JOIN users ON users.id = seller_id WHERE seller_id = $1 ORDER BY cars.date_posted`,
       [user_id]
     )
     .then((result) => {
