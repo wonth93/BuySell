@@ -383,7 +383,65 @@ $(document).ready(function () {
   /////////Load the createListing form//////////////////////
   const loadCreateListing = function () {
     $main.empty();
-    $main.append("<p>Create Listing Form Here</p>");
+    $main.append(`<p>Create Listing Form Here</p>
+    <section id="new-car-container"></section>`);
+
+    const $createListingForm = $(`
+    <form action="cars/add" method="post" id="new-car-form">
+
+      <div class="new-car-form-wrapper">
+      <label>Model</laber>
+      <input type="text" name="title" placeholder="Model" id="new-car-form_title">
+      </div>
+
+      <div class="new-car-form-wrapper">
+      <label>Manufacturer</laber>
+      <input type="text" name="manufacturer" placeholder="Manufacturer" id="new-car-form_manufacturer">
+      </div>
+
+      <div class="new-car-form-wrapper">
+      <label>Condition</laber>
+      <input type="text" name="condition" placeholder="Condition" id="new-car-form_condition">
+      </div>
+
+      <div class="new-car-form-wrapper">
+      <label>Description</laber>
+      <textarea name="description" placeholder="Description" id="new-car-form_description" cols="30" rows="10"></textarea>
+      </div>
+
+      <div class="new-car-form-wrapper">
+      <label>Thumbnail Image</laber>
+      <input type="text" name="thumbnail_photo_url" placeholder="Thumbnail Image" id="new-car-form_thumbnail_photo_url">
+      </div>
+
+      <div class="new-car-form-wrapper">
+      <label>Cover Image</laber>
+      <input type="text" name="cover_photo_url" placeholder="Cover Image" id="new-car-form_cover_photo_ur">
+      </div>
+
+      <div class="new-car-form-wrapper">
+      <label>Price</laber>
+      <input type="number" name="price" placeholder="Price" id="new-car-form_price">
+      </div>
+
+      <div class="new-car-form-wrapper">
+      <label>Mileage</laber>
+      <input type="number" name="mileage" placeholder="Mileage" id="new-car-form_mileage">
+      </div>
+
+      <div class="new-car-form-wrapper">
+      <label>Year</laber>
+      <input type="number" name="year" placeholder="Year" id="new-car-form_year">
+      </div>
+
+      <div class="new-car-form-wrapper">
+        <button type="submit">Create</button>
+      </div>
+
+    </form>
+    `)
+
+    $("#new-car-container").append($createListingForm);
   };
 
   ///////// Rendering an individual car page //////////////

@@ -51,19 +51,19 @@ router.get("/myFavourites", (req, res) => {
     });
 });
 
-router.get("/myFavourites/:id", (req, res) => {
-  const id = req.params.id;
-  // const user_id = req.cookies.user_id;
-  const query = `SELECT cars.*, cars_favourites.id AS car_fav_id FROM cars_favourites INNER JOIN users ON users.id = buyer_id INNER JOIN cars ON cars.id = car_id WHERE cars_favourites.id = ${id}`;
-  db.query(query)
-    .then((data) => {
-      const car = data.rows;
-      res.json(car[0]);
-    })
-    .catch((err) => {
-      res.status(500).json({ error: err.message });
-    });
-});
+// router.get("/myFavourites/:id", (req, res) => {
+//   const id = req.params.id;
+//   // const user_id = req.cookies.user_id;
+//   const query = `SELECT cars.*, cars_favourites.id AS car_fav_id FROM cars_favourites INNER JOIN users ON users.id = buyer_id INNER JOIN cars ON cars.id = car_id WHERE cars_favourites.id = ${id}`;
+//   db.query(query)
+//     .then((data) => {
+//       const car = data.rows;
+//       res.json(car[0]);
+//     })
+//     .catch((err) => {
+//       res.status(500).json({ error: err.message });
+//     });
+// });
 
 // Add favourite
 router.post("/myFavourites/:id/add", (req, res) => {
