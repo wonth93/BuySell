@@ -4,7 +4,6 @@
   //padding: 10px;
   margin-bottom: 1.5rem;
   display: flex;
-  gap: 2em;
   background-color: rgb(243, 243, 243);
   animation: fade-in-down 2s ease 1;
 }
@@ -16,8 +15,8 @@
 .single-car-info {
   width: 100%;
   padding-top: 2rem;
-  padding-bottom: 1rem;
-  padding-right: 1rem;
+  padding-right: 2rem;
+  padding-left: 2rem;
 }
 
 .single-car-info h2 {
@@ -62,3 +61,14 @@
   width: 7rem;
 }
 
+@media screen and (max-width: 1165px) {
+  .single-car {
+    flex-direction: column;
+  }
+
+  .single-car .single-car-info {
+    padding: 2rem;
+    width: 100%;
+    margin: auto;
+  }
+}

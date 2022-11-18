@@ -72,6 +72,7 @@ button {
   }
 }
 
+/************* For smaller screensizes ********/
 @media screen and (max-width: 992px) {
 
   //page header
@@ -92,7 +93,6 @@ button {
   //car element
   .car {
     flex-direction: column;
-    gap: 1rem;
   }
 
   .car-image {
@@ -125,20 +125,6 @@ button {
   // .single-car img {
   //   width: 100%;
   // }
-  // #filter-car-form {
-  //   flex-direction: column;
-  // }
 }
 
-@media screen and (max-width: 1165px) {
-  .single-car {
-    flex-direction: column;
-    gap: 1rem;
-  }
 
-  .single-car .single-car-info {
-    padding: 2rem;
-    width: 100%;
-    margin: auto;
-  }
-}

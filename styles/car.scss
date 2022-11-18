@@ -4,7 +4,7 @@
   //padding: 10px;
   margin-bottom: 1.5rem;
   display: flex;
-  gap: 2em;
+  //gap: 2em;
   background-color: rgb(243, 243, 243);
   animation: fade-in-down 2s ease 1;
 }
@@ -55,9 +55,7 @@ active-false button.add-fav-button, active-false form.add-fav {
 }
 .car-info {
   width: 100%;
-  padding-top: 2rem;
-  padding-right: 2rem;
-  padding-bottom: 2rem;
+  padding: 2rem;
 }
 
 .car-info h3 {
