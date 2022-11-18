@@ -113,16 +113,15 @@ const createNewListing = (cars) => {
 };
 
 // Insert new favourite car to database
-const addFavourite = (cars) => {
+const addFavourite = (buyerId, carId) => {
   return db
     .query(`
       INSERT INTO cars_favourites (buyer_id, car_id)
-      VALUES ($1, $2)
-      RETURNING *;
+      VALUES ($1, $2);
       `,
       [
-        cars.buyer_id,
-        cars.car_id
+        buyerId,
+        carId
       ]
     )
     .then((result) => {
@@ -132,6 +131,20 @@ const addFavourite = (cars) => {
       console.log(error.message);
     });
 };
+
+// Delect cars from my favourites
+const removeFavourite = (car_fav_id) => {
+  return db
+    .query(`
+    DELETE FROM cars_favourites WHERE id = $1
+    `, [car_fav_id])
+    .then((result) => {
+      return result.rows;
+    })
+    .catch((error) => {
+      console.log(error.message);
+    });
+}
 
 // Query for user's message inbox
 const getMyMessages = (user_id) => {
@@ -152,6 +165,27 @@ const getMyMessages = (user_id) => {
     });
 };
 
+// Insert new message to database
+const sendMessage = (sender, receiver, carId, message) => {
+  return db
+    .query(`
+    INSERT INTO messages (sender_id, receiver_id, car_id, message)
+    VALUES ($1, $2, $3, $4)
+    `, [
+        sender,
+        receiver,
+        carId,
+        message
+      ]
+    )
+    .then((result) => {
+      return result.rows[0];
+    })
+    .catch((error) => {
+      console.log(error.message);
+    });
+}
+
 module.exports = {
   getUsers,
   getAllCars,
@@ -161,4 +195,6 @@ module.exports = {
   createNewListing,
   addFavourite,
   getMyMessages,
+  removeFavourite,
+  sendMessage,
 };

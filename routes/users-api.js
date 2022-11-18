@@ -10,6 +10,7 @@ const router = express.Router();
 const userQueries = require("../db/queries/database");
 const db = require("../db/connection");
 
+// Get user
 router.get("/", (req, res) => {
   userQueries
     .getUsers()
@@ -24,12 +25,10 @@ router.get("/", (req, res) => {
 // Get my listings
 router.get("/myListings", (req, res) => {
   const user_id = req.cookies.user_id;
-  //console.log(user_id);
 
   userQueries
     .getMyListings(user_id)
     .then((cars) => {
-      // console.log(cars);
       res.send({ cars });
     })
     .catch((err) => {
@@ -37,7 +36,7 @@ router.get("/myListings", (req, res) => {
     });
 });
 
-// Get my favourites
+// Get the list of my favourite cars
 router.get("/myFavourites", (req, res) => {
   const user_id = req.cookies.user_id;
 
@@ -51,31 +50,14 @@ router.get("/myFavourites", (req, res) => {
     });
 });
 
-// router.get("/myFavourites/:id", (req, res) => {
-//   const id = req.params.id;
-//   // const user_id = req.cookies.user_id;
-//   const query = `SELECT cars.*, cars_favourites.id AS car_fav_id FROM cars_favourites INNER JOIN users ON users.id = buyer_id INNER JOIN cars ON cars.id = car_id WHERE cars_favourites.id = ${id}`;
-//   db.query(query)
-//     .then((data) => {
-//       const car = data.rows;
-//       res.json(car[0]);
-//     })
-//     .catch((err) => {
-//       res.status(500).json({ error: err.message });
-//     });
-// });
-
-// Add favourite
+// Add car to my favourites
 router.post("/myFavourites/:id/add", (req, res) => {
   const id = req.params.id;
   const user_id = req.cookies.user_id;
 
-  const query = `INSERT INTO cars_favourites (buyer_id, car_id) VALUES (${user_id}, ${id})`;
-  db.query(query)
-    // userQueries
-    //   .addFavourite({ ...req.body, buyer_id: user_id })
-    .then((cars) => {
-      // res.send(cars);
+  userQueries
+    .addFavourite(user_id, id)
+    .then(() => {
       res.redirect("/");
     })
     .catch((err) => {
@@ -83,14 +65,14 @@ router.post("/myFavourites/:id/add", (req, res) => {
     });
 });
 
-// Remove favourites
+// Remove cars from  my favourites
 router.post("/myFavourites/:id/delete", (req, res) => {
   const id = req.params.id;
-  const query = `DELETE FROM cars_favourites WHERE id = ${id}`;
-  db.query(query)
+
+  userQueries
+    .removeFavourite(id)
     .then(() => {
       res.redirect("/");
-      //res.status(200);
     })
     .catch((err) => {
       res.status(500).json({ error: err.message });
@@ -100,12 +82,10 @@ router.post("/myFavourites/:id/delete", (req, res) => {
 // Get my messages
 router.get("/myMessages", (req, res) => {
   const user_id = req.cookies.user_id;
-  //console.log(user_id);
 
   userQueries
     .getMyMessages(user_id)
     .then((messages) => {
-      // console.log(cars);
       res.send({ messages });
     })
     .catch((err) => {
@@ -113,6 +93,7 @@ router.get("/myMessages", (req, res) => {
     });
 });
 
+// Send message to seller
 router.post("/myMessages/:receiver_id/:car_id/add", (req, res) => {
   const car_id = req.params.car_id;
   const receiver_id = req.params.receiver_id;
@@ -120,28 +101,30 @@ router.post("/myMessages/:receiver_id/:car_id/add", (req, res) => {
   const message = req.body.text;
   console.log(req.params)
 
+  // If message is empty message cannot be sent
   if (!message) {
     return res.status(400);
   }
 
-  const query = `INSERT INTO messages (sender_id, receiver_id, car_id, message, date_sent) VALUES (${user_id}, ${receiver_id}, ${car_id}, '${message}', CURRENT_TIMESTAMP)`;
-  db.query(query)
+  userQueries
+    .sendMessage(user_id, receiver_id, car_id, message)
     .then(() => {
       console.log(req.body);
       res.redirect("/");
-      //res.status(200);
     })
     .catch((err) => {
       res.status(500).json({ error: err.message });
     });
 });
 
-// Login and Logout routes
+
+// User login
 router.get("/login/:id", (req, res) => {
   res.cookie("user_id", req.params.id);
   res.redirect("/");
 });
 
+// User logout
 router.post("/logout", (req, res) => {
   res.clearCookie("user_id");
   res.redirect("/");
