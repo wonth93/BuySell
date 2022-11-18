@@ -5,12 +5,16 @@
   margin-bottom: 1.5rem;
   padding: 2rem;
   display: flex;
-  gap: 3em;
+  gap: 2em;
   background-color: rgb(243, 243, 243);
   animation: fade-in-down 2s ease 1;
 }
 
 .message h3 {
+  margin-bottom: 1rem;
+}
+
+.message p {
   margin-bottom: 1rem;
 }
 

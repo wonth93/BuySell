@@ -15,10 +15,13 @@ const getUsers = () => {
 // Get all car post on home page
 const getAllCars = () => {
   return db
-    .query(`
+    .query(
+      `
       SELECT *
       FROM cars
-      ORDER BY date_posted;`)
+      WHERE active = true
+      ORDER BY date_posted;`
+    )
     .then((data) => {
       return data.rows;
     })
@@ -30,15 +33,13 @@ const getAllCars = () => {
 // Query for filter function
 const getCarsByPrice = (maximumPrice, minimumPrice) => {
   return db
-    .query(`
+    .query(
+      `
       SELECT *
       FROM cars
       WHERE price <= $1 AND price >= $2;
       `,
-      [
-        maximumPrice,
-        minimumPrice,
-      ]
+      [maximumPrice, minimumPrice]
     )
     .then((data) => {
       return data.rows;
@@ -51,13 +52,16 @@ const getCarsByPrice = (maximumPrice, minimumPrice) => {
 // Query for user's listings
 const getMyListings = (user_id) => {
   return db
-    .query(`
+    .query(
+      `
       SELECT cars.*
       FROM cars
       INNER JOIN users ON users.id = seller_id
       WHERE seller_id = $1
       ORDER BY cars.date_posted;
-      `, [user_id])
+      `,
+      [user_id]
+    )
     .then((result) => {
       return result.rows;
     })
@@ -69,13 +73,16 @@ const getMyListings = (user_id) => {
 // Query for user's favourite car
 const getMyFavourites = (user_id) => {
   return db
-    .query(`
+    .query(
+      `
       SELECT cars.*, cars_favourites.id AS car_fav_id
       FROM cars_favourites
       INNER JOIN users ON users.id = buyer_id
       INNER JOIN cars ON cars.id = car_id
       WHERE buyer_id = $1;
-      `, [user_id])
+      `,
+      [user_id]
+    )
     .then((result) => {
       return result.rows;
     })
@@ -87,7 +94,8 @@ const getMyFavourites = (user_id) => {
 // Insert new listng to database
 const createNewListing = (cars) => {
   return db
-    .query(`
+    .query(
+      `
       INSERT INTO cars (seller_id, title, manufacturer, condition, description, thumbnail_photo_url, cover_photo_url, price, mileage, year)
       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
       RETURNING *;
@@ -116,14 +124,12 @@ const createNewListing = (cars) => {
 // Insert new favourite car to database
 const addFavourite = (buyerId, carId) => {
   return db
-    .query(`
+    .query(
+      `
       INSERT INTO cars_favourites (buyer_id, car_id)
       VALUES ($1, $2);
       `,
-      [
-        buyerId,
-        carId
-      ]
+      [buyerId, carId]
     )
     .then((result) => {
       return result.rows[0];
@@ -136,9 +142,12 @@ const addFavourite = (buyerId, carId) => {
 // Delect cars from my favourites
 const removeFavourite = (car_fav_id) => {
   return db
-    .query(`
+    .query(
+      `
       DELETE FROM cars_favourites WHERE id = $1;
-    `, [car_fav_id])
+    `,
+      [car_fav_id]
+    )
     .then((result) => {
       return result.rows;
     })
@@ -150,14 +159,17 @@ const removeFavourite = (car_fav_id) => {
 // Query for user's message inbox
 const getMyMessages = (user_id) => {
   return db
-    .query(`
+    .query(
+      `
       SELECT messages.*, users.name AS senderid, cars.title AS carid
       FROM messages
       INNER JOIN users ON users.id = sender_id
       INNER JOIN cars ON cars.id = car_id
       WHERE receiver_id = $1
       ORDER BY date_sent;
-      `,[user_id])
+      `,
+      [user_id]
+    )
     .then((result) => {
       return result.rows;
     })
@@ -169,15 +181,12 @@ const getMyMessages = (user_id) => {
 // Insert new message to database
 const sendMessage = (sender, receiver, carId, message) => {
   return db
-    .query(`
+    .query(
+      `
       INSERT INTO messages (sender_id, receiver_id, car_id, message)
       VALUES ($1, $2, $3, $4);
-    `, [
-        sender,
-        receiver,
-        carId,
-        message
-      ]
+    `,
+      [sender, receiver, carId, message]
     )
     .then((result) => {
       return result.rows[0];
@@ -190,11 +199,14 @@ const sendMessage = (sender, receiver, carId, message) => {
 // Get single car info
 const getSingleCar = (carId) => {
   return db
-    .query(`
+    .query(
+      `
       SELECT *
       FROM cars
       WHERE id = $1;
-    `, [carId])
+    `,
+      [carId]
+    )
     .then((result) => {
       return result.rows[0];
     })
@@ -206,11 +218,14 @@ const getSingleCar = (carId) => {
 // Mark car as SOLD
 const markSold = (carId) => {
   return db
-    .query(`
+    .query(
+      `
       UPDATE cars
       SET active = false
       WHERE cars.id = $1;
-    `, [carId])
+    `,
+      [carId]
+    )
     .then((result) => {
       return result.rows;
     })
@@ -222,16 +237,19 @@ const markSold = (carId) => {
 // Delete listing
 const deleteListing = (carId) => {
   return db
-    .query(`
+    .query(
+      `
     DELETE FROM cars WHERE id = $1;
-    `, [carId])
+    `,
+      [carId]
+    )
     .then((result) => {
       return result.rows;
     })
     .catch((error) => {
       console.log(error.message);
     });
-}
+};
 
 module.exports = {
   getUsers,
@@ -246,5 +264,5 @@ module.exports = {
   sendMessage,
   getSingleCar,
   markSold,
-  deleteListing
+  deleteListing,
 };
