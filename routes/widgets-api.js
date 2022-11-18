@@ -28,7 +28,7 @@ router.get("/price", (req, res) => {
   const maximumPrice = parseInt(req.query.maximum_price);
 
   // Filter will not work when user leave max and min price box empty
-  if(!minimumPrice || !maximumPrice) {
+  if (!minimumPrice && !maximumPrice) {
     res.status(400);
   }
 
@@ -87,7 +87,7 @@ router.post("/add", (req, res) => {
 // Delete listing
 router.post("/:id/delete", (req, res) => {
   const id = req.params.id;
-  
+
   carQueries
     .deleteListing(id)
     .then(() => {
