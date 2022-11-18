@@ -10,13 +10,11 @@ const router = express.Router();
 const db = require("../db/connection");
 const carQueries = require("../db/queries/database");
 
+// Get all cars to homepage
 router.get("/", (req, res) => {
-  // const query = `SELECT * FROM cars`;
   carQueries
     .getAllCars()
     .then((cars) => {
-      // const cars = data.rows;
-      // console.log(cars);
       res.send({ cars });
     })
     .catch((err) => {
@@ -24,17 +22,19 @@ router.get("/", (req, res) => {
     });
 });
 
+// Filter listing by price
 router.get("/price", (req, res) => {
-  // const query = `SELECT * FROM cars`;
   const minimumPrice = parseInt(req.query.minimum_price) || 0;
   const maximumPrice = parseInt(req.query.maximum_price);
 
-  // const filterOptions = req.query;
+  // Filter will not work when user leave max and min price box empty
+  if(!minimumPrice || !maximumPrice) {
+    res.status(400);
+  }
+
   carQueries
     .getCarsByPrice(maximumPrice, minimumPrice)
     .then((cars) => {
-      // const cars = data.rows;
-      // console.log(cars);
       res.send({ cars });
     })
     .catch((err) => {
@@ -42,16 +42,14 @@ router.get("/price", (req, res) => {
     });
 });
 
+// Get single car info
 router.get("/:id", (req, res) => {
   const { id } = req.params;
-  const query = `SELECT * FROM cars WHERE id = ${id}`;
-  // console.log(query);
-  db.query(query)
-    .then((data) => {
-      const car = data.rows;
-      // console.log(car[0]);
-      // res.json({ car });
-      res.json(car[0]);
+
+  carQueries
+    .getSingleCar(id)
+    .then((car) => {
+      res.json(car);
     })
     .catch((err) => {
       res.status(500).json({ error: err.message });
@@ -61,11 +59,10 @@ router.get("/:id", (req, res) => {
 // Mark sold
 router.post("/:id/sold", (req, res) => {
   const id = req.params.id;
-  console.log(id);
-  const query = `UPDATE cars SET active = false WHERE cars.id = ${id}`;
-  db.query(query)
-    .then((cars) => {
-      // res.send({ cars });
+
+  carQueries
+    .markSold(id)
+    .then(() => {
       res.redirect("/");
     })
     .catch((err) => {
@@ -79,9 +76,8 @@ router.post("/add", (req, res) => {
 
   carQueries
     .createNewListing({ ...req.body, seller_id: user_id })
-    .then((cars) => {
+    .then(() => {
       res.redirect("/");
-      // res.send({ cars });
     })
     .catch((err) => {
       res.status(500).json({ error: err.message });
@@ -91,11 +87,11 @@ router.post("/add", (req, res) => {
 // Delete listing
 router.post("/:id/delete", (req, res) => {
   const id = req.params.id;
-  const query = `DELETE FROM cars WHERE id = ${id}`;
-  db.query(query)
+  
+  carQueries
+    .deleteListing(id)
     .then(() => {
       res.redirect("/");
-      //res.status(200).send();
     })
     .catch((err) => {
       res.status(500).json({ error: err.message });
