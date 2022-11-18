@@ -8,7 +8,6 @@
 const express = require("express");
 const router = express.Router();
 const userQueries = require("../db/queries/database");
-const db = require("../db/connection");
 
 // Get user
 router.get("/", (req, res) => {
@@ -116,7 +115,6 @@ router.post("/myMessages/:receiver_id/:car_id/add", (req, res) => {
       res.status(500).json({ error: err.message });
     });
 });
-
 
 // User login
 router.get("/login/:id", (req, res) => {

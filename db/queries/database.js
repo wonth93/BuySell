@@ -14,10 +14,11 @@ const getUsers = () => {
 
 // Get all car post on home page
 const getAllCars = () => {
-  return db.query(`
-    SELECT *
-    FROM cars
-    ORDER BY date_posted;`)
+  return db
+    .query(`
+      SELECT *
+      FROM cars
+      ORDER BY date_posted;`)
     .then((data) => {
       return data.rows;
     })
@@ -136,7 +137,7 @@ const addFavourite = (buyerId, carId) => {
 const removeFavourite = (car_fav_id) => {
   return db
     .query(`
-    DELETE FROM cars_favourites WHERE id = $1
+      DELETE FROM cars_favourites WHERE id = $1;
     `, [car_fav_id])
     .then((result) => {
       return result.rows;
@@ -144,7 +145,7 @@ const removeFavourite = (car_fav_id) => {
     .catch((error) => {
       console.log(error.message);
     });
-}
+};
 
 // Query for user's message inbox
 const getMyMessages = (user_id) => {
@@ -155,7 +156,7 @@ const getMyMessages = (user_id) => {
       INNER JOIN users ON users.id = sender_id
       INNER JOIN cars ON cars.id = car_id
       WHERE receiver_id = $1
-      ORDER BY date_sent
+      ORDER BY date_sent;
       `,[user_id])
     .then((result) => {
       return result.rows;
@@ -169,8 +170,8 @@ const getMyMessages = (user_id) => {
 const sendMessage = (sender, receiver, carId, message) => {
   return db
     .query(`
-    INSERT INTO messages (sender_id, receiver_id, car_id, message)
-    VALUES ($1, $2, $3, $4)
+      INSERT INTO messages (sender_id, receiver_id, car_id, message)
+      VALUES ($1, $2, $3, $4);
     `, [
         sender,
         receiver,
@@ -180,6 +181,52 @@ const sendMessage = (sender, receiver, carId, message) => {
     )
     .then((result) => {
       return result.rows[0];
+    })
+    .catch((error) => {
+      console.log(error.message);
+    });
+};
+
+// Get single car info
+const getSingleCar = (carId) => {
+  return db
+    .query(`
+      SELECT *
+      FROM cars
+      WHERE id = $1;
+    `, [carId])
+    .then((result) => {
+      return result.rows[0];
+    })
+    .catch((error) => {
+      console.log(error.message);
+    });
+};
+
+// Mark car as SOLD
+const markSold = (carId) => {
+  return db
+    .query(`
+      UPDATE cars
+      SET active = false
+      WHERE cars.id = $1;
+    `, [carId])
+    .then((result) => {
+      return result.rows;
+    })
+    .catch((error) => {
+      console.log(error.message);
+    });
+};
+
+// Delete listing
+const deleteListing = (carId) => {
+  return db
+    .query(`
+    DELETE FROM cars WHERE id = $1;
+    `, [carId])
+    .then((result) => {
+      return result.rows;
     })
     .catch((error) => {
       console.log(error.message);
@@ -197,4 +244,7 @@ module.exports = {
   getMyMessages,
   removeFavourite,
   sendMessage,
+  getSingleCar,
+  markSold,
+  deleteListing
 };

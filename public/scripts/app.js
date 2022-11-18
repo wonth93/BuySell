@@ -480,7 +480,7 @@ $(document).ready(function () {
         mileage,
         price,
         description,
-        active,
+        year,
       } = carObject;
 
       const $singleCar = $(`<section class="single-car-container" id=${id}>
@@ -491,6 +491,7 @@ $(document).ready(function () {
           <div class="single-car-details">
             <ul>
               <li>Manufacturer: ${manufacturer}</li>
+              <li>Year: ${year}</li>
               <li>Condition: ${condition}</li>
               <li>Price: $${price}</li>
               <li>Mileage: ${mileage}</li>
