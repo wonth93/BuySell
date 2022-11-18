@@ -3,7 +3,7 @@
   border: 2px solid black;
   //padding: 10px;
   margin-bottom: 1.5rem;
-  padding: 1rem;
+  padding: 2rem;
   display: flex;
   gap: 3em;
   background-color: rgb(243, 243, 243);
@@ -16,6 +16,10 @@
 
 .message textarea {
   margin-bottom: 1rem;
+}
+
+.reply-message {
+  width: 100%;
 }
 
 // .message textarea {
