@@ -1,38 +1,62 @@
 const db = require("../connection");
 
+// Get all user
 const getUsers = () => {
-  return db.query("SELECT * FROM users;").then((data) => {
-    return data.rows;
-  });
-};
-
-const getAllCars = () => {
-  return db.query("SELECT * FROM cars ORDER BY date_posted;").then((data) => {
-    //For later - SELECT * FROM cars WHERE active = yes? So we can filter out sold cars
-    return data.rows;
-  });
-};
-
-const getCarsByPrice = (maximumPrice, minimumPrice) => {
-  // const numPrice = parseInt(filterOptions.maximum_price);
-  //const query = `SELECT * FROM cars WHERE price < $1`;
   return db
-    .query(`SELECT * FROM cars WHERE price <= $1 AND price >= $2`, [
-      maximumPrice,
-      minimumPrice,
-    ])
+    .query("SELECT * FROM users;")
     .then((data) => {
-      //For later - SELECT * FROM cars WHERE active = yes? So we can filter out sold cars
       return data.rows;
+    })
+    .catch((error) => {
+      console.log(error.message);
     });
 };
 
+// Get all car post on home page
+const getAllCars = () => {
+  return db.query(`
+    SELECT *
+    FROM cars
+    ORDER BY date_posted;`)
+    .then((data) => {
+      return data.rows;
+    })
+    .catch((error) => {
+      console.log(error.message);
+    });
+};
+
+// Query for filter function
+const getCarsByPrice = (maximumPrice, minimumPrice) => {
+  return db
+    .query(`
+      SELECT *
+      FROM cars
+      WHERE price <= $1 AND price >= $2;
+      `,
+      [
+        maximumPrice,
+        minimumPrice,
+      ]
+    )
+    .then((data) => {
+      return data.rows;
+    })
+    .catch((error) => {
+      console.log(error.message);
+    });
+};
+
+// Query for user's listings
 const getMyListings = (user_id) => {
   return db
-    .query(
-      `SELECT cars.* FROM cars INNER JOIN users ON users.id = seller_id WHERE seller_id = $1 ORDER BY cars.date_posted`,
-      [user_id]
-    )
+    .query(`
+      SELECT cars.*
+      FROM cars
+      INNER JOIN users ON users.id = seller_id
+      WHERE seller_id = $1
+      ORDER BY cars.date_posted;
+      `, [user_id])
     .then((result) => {
       return result.rows;
     })
@@ -41,12 +65,16 @@ const getMyListings = (user_id) => {
     });
 };
 
+// Query for user's favourite car
 const getMyFavourites = (user_id) => {
   return db
-    .query(
-      `SELECT cars.*, cars_favourites.id AS car_fav_id FROM cars_favourites INNER JOIN users ON users.id = buyer_id INNER JOIN cars ON cars.id = car_id WHERE buyer_id = $1`,
-      [user_id]
-    )
+    .query(`
+      SELECT cars.*, cars_favourites.id AS car_fav_id
+      FROM cars_favourites
+      INNER JOIN users ON users.id = buyer_id
+      INNER JOIN cars ON cars.id = car_id
+      WHERE buyer_id = $1;
+      `, [user_id])
     .then((result) => {
       return result.rows;
     })
@@ -55,14 +83,14 @@ const getMyFavourites = (user_id) => {
     });
 };
 
+// Insert new listng to database
 const createNewListing = (cars) => {
   return db
-    .query(
-      `
-    INSERT INTO cars (seller_id, title, manufacturer, condition, description, thumbnail_photo_url, cover_photo_url, price, mileage, year)
-    VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
-    RETURNING *;
-    `,
+    .query(`
+      INSERT INTO cars (seller_id, title, manufacturer, condition, description, thumbnail_photo_url, cover_photo_url, price, mileage, year)
+      VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
+      RETURNING *;
+      `,
       [
         cars.seller_id,
         cars.title,
@@ -84,15 +112,18 @@ const createNewListing = (cars) => {
     });
 };
 
+// Insert new favourite car to database
 const addFavourite = (cars) => {
   return db
-    .query(
-      `
-    INSERT INTO cars_favourites (buyer_id, car_id)
-    VALUES ($1, $2)
-    RETURNING *;
-    `,
-      [cars.buyer_id, cars.car_id]
+    .query(`
+      INSERT INTO cars_favourites (buyer_id, car_id)
+      VALUES ($1, $2)
+      RETURNING *;
+      `,
+      [
+        cars.buyer_id,
+        cars.car_id
+      ]
     )
     .then((result) => {
       return result.rows[0];
@@ -102,13 +133,17 @@ const addFavourite = (cars) => {
     });
 };
 
+// Query for user's message inbox
 const getMyMessages = (user_id) => {
   return db
-    .query(
-      `SELECT messages.*, users.name AS senderid, cars.title AS carid FROM messages INNER JOIN users ON users.id = sender_id INNER JOIN cars ON cars.id = car_id WHERE receiver_id = $1 ORDER BY date_sent`,
-      // `SELECT messages.* FROM messages INNER JOIN users ON users.id = receiver_id WHERE receiver_id = $1 ORDER BY date_sent`,
-      [user_id]
-    )
+    .query(`
+      SELECT messages.*, users.name AS senderid, cars.title AS carid
+      FROM messages
+      INNER JOIN users ON users.id = sender_id
+      INNER JOIN cars ON cars.id = car_id
+      WHERE receiver_id = $1
+      ORDER BY date_sent
+      `,[user_id])
     .then((result) => {
       return result.rows;
     })
