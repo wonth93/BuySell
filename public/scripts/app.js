@@ -268,6 +268,7 @@ $(document).ready(function () {
         mileage,
         price,
         active,
+        year,
       } = carData;
 
       const $car = $(`<article class="car active-${active}"id=${id}>
@@ -276,7 +277,8 @@ $(document).ready(function () {
         <h3>${title}</h3>
         <div class="car-details">
         <ul>
-          <li>Manufacturer ${manufacturer}</li>
+          <li>Manufacturer: ${manufacturer}</li>
+          <li>Year: ${year}</li>
           <li>Condition: ${condition}</li>
           <li>Price: $${price}</li>
           <li>Mileage: ${mileage} miles</li>
@@ -520,7 +522,7 @@ $(document).ready(function () {
     };
   };
 
-  
+
   // ********************** Managing clicks on header to load different "pages" ********************** //
   $("header").on("click", "#home", () => {
     loadHomepage();
