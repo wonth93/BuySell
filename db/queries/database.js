@@ -183,8 +183,8 @@ const sendMessage = (sender, receiver, carId, message) => {
   return db
     .query(
       `
-      INSERT INTO messages (sender_id, receiver_id, car_id, message)
-      VALUES ($1, $2, $3, $4);
+      INSERT INTO messages (sender_id, receiver_id, car_id, message, date_sent)
+      VALUES ($1, $2, $3, $4, CURRENT_TIMESTAMP);
     `,
       [sender, receiver, carId, message]
     )
