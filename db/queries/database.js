@@ -37,7 +37,7 @@ const getCarsByPrice = (maximumPrice, minimumPrice) => {
       `
       SELECT *
       FROM cars
-      WHERE price <= $1 AND price >= $2;
+      WHERE active = true AND price <= $1 AND price >= $2;
       `,
       [maximumPrice, minimumPrice]
     )
