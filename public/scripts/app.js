@@ -1,20 +1,18 @@
 // Client facing scripts here
 $(document).ready(function () {
-
   // header link element
   const $header = `<ul class="header-links">
     <li id="home" style="cursor: pointer">Home</li>
     <li id="my-listings" style="cursor: pointer">My Listings</li>
     <li id="my-favourites" style="cursor: pointer">My Favourites</li>
     <li id="create-listing" style="cursor: pointer">Create a New Listing</li>
-    <li id="my-messages" style="cursor: pointer">My messages</li>
+    <li id="my-messages" style="cursor: pointer">My Messages</li>
     <form class="logout-button" method="POST" action="/api/users/logout"><button style="cursor: pointer">Logout</button></form>
   </ul>`;
 
   $("#page-header").prepend($header);
 
   const $main = $("#main-content");
-
 
   // ********************** Load the homepage with all the listings ********************** //
   const loadHomepage = function () {
@@ -153,11 +151,10 @@ $(document).ready(function () {
   // Calling load homepage when index loads
   loadHomepage();
 
-
   // ********************** Load my listings page ********************** //
   const loadMyListings = function () {
     $main.empty();
-    $main.append(` <h2 class="section-title">My listings</h2>
+    $main.append(` <h2 class="section-title">My Listings</h2>
     <section id="cars-container"></section>`);
 
     // Function that loads all cars that are list by the seller function
@@ -208,7 +205,7 @@ $(document).ready(function () {
         <footer class="car-actions">
           <ul>
           <li class="sold">SOLD</li>
-          <li><form class="delete-listing" method="POST" action="/cars/${id}/delete"><button class="delete-listing-button" style="cursor: pointer">Delete this listing</button></form></li>
+          <li><form class="delete-listing" method="POST" action="/cars/${id}/delete"><button class="delete-listing-button" style="cursor: pointer">Delete Listing</button></form></li>
           <li><form class="mark-sold" method="POST" action="/cars/${id}/sold"><button class="mark-sold-button" style="cursor: pointer">Mark As Sold</button></form></li>
           </ul>
         </footer>
@@ -228,14 +225,12 @@ $(document).ready(function () {
         $("#cars-container").prepend($car);
       }
     };
-
   };
-
 
   // ********************** Loading the my favourites ********************** //
   const loadMyFavs = function () {
     $main.empty();
-    $main.append(` <h2 class="section-title">My favourites</h2>
+    $main.append(` <h2 class="section-title">My Favourites</h2>
     <section id="cars-container"></section>`);
 
     // Function that loads users' favourite cars
@@ -287,7 +282,7 @@ $(document).ready(function () {
           <ul>
           <li class="sold">SOLD</li>
             <li><button class="learn-more" style="cursor: pointer">Learn More</button></li>
-            <li><form class="remove-fav" method="POST" action="/api/users/myFavourites/${car_fav_id}/delete"><button type="submit" style="cursor: pointer">Remove from favourites</button></form><li>
+            <li><form class="remove-fav" method="POST" action="/api/users/myFavourites/${car_fav_id}/delete"><button type="submit" style="cursor: pointer">Remove Favourite</button></form><li>
           </ul>
         </footer>
         </div>
@@ -312,11 +307,10 @@ $(document).ready(function () {
     });
   };
 
-
   // ********************** Load the createListing form ********************** //
   const loadCreateListing = function () {
     $main.empty();
-    $main.append(`<h3 class="section-title">Sell your car</h3>
+    $main.append(`<h3 class="section-title">List your car for sale</h3>
     <section id="new-car-container"></section>`);
 
     // Create new listing form element
@@ -377,7 +371,6 @@ $(document).ready(function () {
 
     $("#new-car-container").append($createListingForm);
   };
-
 
   // ********************** Rendering an individual car page ********************** //
   const loadSingleCarPage = function (id) {
@@ -450,7 +443,6 @@ $(document).ready(function () {
     };
   };
 
-
   // ********************** Loading messages page ********************** //
   const loadMyMessages = function () {
     $main.empty();
@@ -477,14 +469,8 @@ $(document).ready(function () {
 
     // Function that create message element
     const createMessageElement = (singleMessage) => {
-      const {
-        sender_id,
-        car_id,
-        date_sent,
-        message,
-        senderid,
-        carid,
-      } = singleMessage;
+      const { sender_id, car_id, date_sent, message, senderid, carid } =
+        singleMessage;
 
       const $message = $(`<article class="message">
     <div class="message-details">
@@ -522,7 +508,6 @@ $(document).ready(function () {
     };
   };
 
-
   // ********************** Managing clicks on header to load different "pages" ********************** //
   $("header").on("click", "#home", () => {
     loadHomepage();
@@ -543,5 +528,4 @@ $(document).ready(function () {
   $("header").on("click", "#my-messages", () => {
     loadMyMessages();
   });
-
 });
