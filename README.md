@@ -1,6 +1,8 @@
 # BuySell Your Cars
 
-A mini advertisement platform for users to sell them car.
+A mini advertising platform for users to sell them car.
+
+It was build with HTML, CSS, JS, jQuery and AJAX for front-end; Node, Express for back-end.
 
 ## Final Product
 
@@ -42,3 +44,4 @@ Inbox Messages
 - PG 6.x
 - PSQL
 - Express
+- body-parser
