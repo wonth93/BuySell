@@ -1,6 +1,6 @@
 # BuySell Your Cars
 
-A mini advertising platform for users to sell them car.
+A mini advertising platform for users to sell their car.
 
 It was build with HTML, CSS, JS, jQuery and AJAX for front-end; Node, Express for back-end.
 
